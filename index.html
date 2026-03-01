@@ -4,205 +4,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VENTAS SAKURITA MODZ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <title>SAKURITA MODZ | Official Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root { --primary: #bc13fe; --primary-glow: rgba(188, 19, 254, 0.6); --bg-dark: #050505; --card-bg: rgba(10, 10, 10, 0.95); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { height: 100%; font-family: 'Poppins', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; pointer-events: none; background: radial-gradient(circle at 50% 50%, #11001a 0%, #000000 100%); }
+        
+        .view { display: none; position: relative; z-index: 2; min-height: 100vh; width: 100%; }
+        .view.active { display: flex; justify-content: center; align-items: center; }
+        #home-view.active { display: block; }
 
-        body, html {
-            height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background-color: #000;
-            overflow: hidden;
-        }
+        .auth-box { background: var(--card-bg); padding: 35px; border-radius: 20px; border: 1px solid var(--primary); box-shadow: 0 0 30px rgba(188, 19, 254, 0.2); width: 90%; max-width: 350px; text-align: center; backdrop-filter: blur(15px); }
+        .auth-box h1 { font-family: 'Orbitron'; font-size: 1.1rem; margin-bottom: 25px; letter-spacing: 2px; }
+        .auth-box h1 span { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+        
+        .input-group { position: relative; margin-bottom: 25px; text-align: left; }
+        .input-group input { width: 100%; padding: 10px 0; background: transparent; border: none; border-bottom: 1px solid #444; outline: none; color: #fff; font-size: 14px; transition: 0.3s; }
+        .input-group input:focus { border-bottom: 2px solid var(--primary); }
+        .input-group label { position: absolute; top: 10px; left: 0; color: #777; font-size: 14px; pointer-events: none; transition: 0.3s; }
+        .input-group input:focus ~ label, .input-group input:valid ~ label { top: -20px; font-size: 11px; color: var(--primary); font-weight: bold; }
 
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
+        .btn-main { width: 100%; padding: 13px; background: var(--primary); border: none; border-radius: 8px; color: #fff; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; transition: 0.4s; text-transform: uppercase; box-shadow: 0 4px 15px rgba(188, 19, 254, 0.4); }
+        .btn-main:hover { background: #d456ff; transform: translateY(-2px); box-shadow: 0 0 25px var(--primary); }
 
-        .login-container {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+        .sub-links { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 11px; }
+        .sub-links a { color: #888; text-decoration: none; cursor: pointer; transition: 0.3s; }
+        .sub-links a:hover { color: var(--primary); text-shadow: 0 0 5px var(--primary); }
 
-        /* CUADRO COMPACTO */
-        .login-box {
-            background: rgba(8, 8, 8, 0.95);
-            padding: 35px 30px;
-            border-radius: 15px;
-            border: 1px solid #bc13fe;
-            box-shadow: 0 0 30px rgba(188, 19, 254, 0.15);
-            width: 330px;
-            text-align: center;
-        }
+        header { position: fixed; top: 0; width: 100%; height: 70px; z-index: 100; display: flex; align-items: center; padding: 0 20px; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(188, 19, 254, 0.2); }
+        .menu-btn { font-size: 28px; color: var(--primary); cursor: pointer; margin-right: 15px; }
+        .logo-web { font-family: 'Orbitron'; font-weight: 800; font-size: 1.1rem; }
+        .logo-web span { color: var(--primary); }
 
-        .login-box h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            color: #fff;
-            letter-spacing: 2px;
-        }
+        .drawer { position: fixed; top: 0; left: -310px; width: 300px; height: 100vh; background: #080808; border-right: 2px solid var(--primary); z-index: 1000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .drawer.active { left: 0; box-shadow: 10px 0 50px rgba(0,0,0,0.9); }
+        .drawer-header { padding: 40px 20px; text-align: center; border-bottom: 1px solid #1a1a1a; }
+        .drawer-icon { width: 60px; height: 60px; background: #111; border: 2px solid var(--primary); border-radius: 50%; margin: 0 auto 15px; box-shadow: 0 0 15px var(--primary); display: flex; align-items: center; justify-content: center; font-size: 30px; }
+        .drawer-title { font-family: 'Orbitron'; font-size: 15px; color: #fff; letter-spacing: 2px; }
 
-        .login-box h1 span {
-            color: #bc13fe;
-            text-shadow: 0 0 10px #bc13fe;
-        }
+        .nav-links { padding: 20px 10px; }
+        .nav-opt { padding: 14px 18px; margin-bottom: 5px; border-radius: 10px; cursor: pointer; transition: 0.3s; color: #bbb; display: flex; align-items: center; gap: 15px; font-size: 12px; }
+        .nav-opt i { color: var(--primary); font-size: 16px; width: 20px; text-align: center; font-style: normal; }
+        .nav-opt:hover { background: rgba(188, 19, 254, 0.1); color: #fff; transform: translateX(8px); }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 10px 0;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #444;
-            outline: none;
-            color: #fff;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        /* LÍNEA MORADO NEÓN FOCUS */
-        .input-group input:focus {
-            border-bottom: 2px solid #bc13fe;
-        }
-
-        .input-group label {
-            position: absolute;
-            top: 10px;
-            left: 0;
-            color: #777;
-            font-size: 14px;
-            pointer-events: none;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus ~ label,
-        .input-group input:valid ~ label {
-            top: -15px;
-            font-size: 11px;
-            color: #bc13fe;
-        }
-
-        /* TEXTOS CLICABLES ARRIBA DEL BOTÓN */
-        .sub-links {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 25px; /* Espacio antes del botón */
-            font-size: 11px;
-        }
-
-        .sub-links a {
-            color: #888;
-            text-decoration: none;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .sub-links a:hover {
-            color: #bc13fe;
-            text-shadow: 0 0 5px #bc13fe;
-        }
-
-        /* Subrayado animado neón */
-        .sub-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -2px;
-            left: 0;
-            background-color: #bc13fe;
-            box-shadow: 0 0 5px #bc13fe;
-            transition: 0.3s;
-        }
-
-        .sub-links a:hover::after {
-            width: 100%;
-        }
-
-        /* BOTÓN DE ACCESO AL FINAL */
-        .btn-acceder {
-            width: 100%;
-            padding: 12px;
-            background: #bc13fe;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.4s;
-            box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
-            text-transform: uppercase;
-        }
-
-        .btn-acceder:hover {
-            background: #d456ff;
-            box-shadow: 0 0 25px rgba(188, 19, 254, 0.7);
-            transform: scale(1.02);
-        }
+        .content { padding: 100px 20px 50px; max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .web-card { background: rgba(15,15,15,0.8); border: 1px solid #222; border-radius: 15px; padding: 20px; text-align: center; border-bottom: 3px solid var(--primary); }
+        .overlay-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; display: none; }
     </style>
 </head>
 <body>
 
     <div id="particles-js"></div>
+    <div class="overlay-bg" id="ov" onclick="toggleMenu()"></div>
 
-    <div class="login-container">
-        <div class="login-box">
+    <div id="login-view" class="view active">
+        <div class="auth-box">
             <h1>VENTAS <span>SAKURITA MODZ</span></h1>
-            
-            <form>
-                <div class="input-group">
-                    <input type="text" required>
-                    <label>Usuario</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" required>
-                    <label>Contraseña</label>
-                </div>
-
-                <div class="sub-links">
-                    <a href="#">Recuperar contraseña</a>
-                    <a href="#">Crear cuenta</a>
-                </div>
-
-                <button type="submit" class="btn-acceder">ACCEDER</button>
-            </form>
+            <div class="input-group"><input type="email" id="log-email" required><label>Email</label></div>
+            <div class="input-group"><input type="password" id="log-pass" required><label>Contraseña</label></div>
+            <div class="sub-links">
+                <a onclick="showView('recovery-view')">¿Olvidaste tu clave?</a>
+                <a onclick="showView('register-view')">Crear cuenta</a>
+            </div>
+            <button class="btn-main" onclick="login()">ACCEDER</button>
         </div>
     </div>
 
+    <div id="register-view" class="view">
+        <div class="auth-box">
+            <h1>NUEVO <span>USUARIO</span></h1>
+            <div class="input-group"><input type="email" id="reg-email" required><label>Correo Electrónico</label></div>
+            <div class="input-group"><input type="password" id="reg-pass" required><label>Contraseña</label></div>
+            <div class="sub-links" style="justify-content: center;"><a onclick="showView('login-view')">Ya tengo cuenta</a></div>
+            <button class="btn-main" onclick="register()">REGISTRARSE</button>
+        </div>
+    </div>
+
+    <div id="recovery-view" class="view">
+        <div class="auth-box">
+            <h1>RECUPERAR <span>SISTEMA</span></h1>
+            <div class="input-group"><input type="email" id="rec-email" required><label>Email del Usuario</label></div>
+            <button class="btn-main" onclick="resetPassword()">ENVIAR CLAVE TEMPORAL</button>
+            <div class="sub-links" style="justify-content: center; margin-top: 20px;"><a onclick="showView('login-view')">Volver</a></div>
+        </div>
+    </div>
+
+    <div id="home-view" class="view">
+        <header>
+            <div class="menu-btn" onclick="toggleMenu()">☰</div>
+            <div class="logo-web">SAKURITA <span>MODZ</span></div>
+            <div style="margin-left: auto; font-family: 'Orbitron'; color: #00ff7f; font-size: 12px;">ONLINE</div>
+        </header>
+
+        <nav class="drawer" id="side">
+            <div class="drawer-header">
+                <div class="drawer-icon">🌸</div>
+                <div class="drawer-title">SAKURITA MODZ</div>
+            </div>
+            <div class="nav-links">
+                <div class="nav-opt"><i>📊</i> DASHBOARD</div>
+                <div class="nav-opt"><i>🔑</i> TIENDA DE KEYS</div>
+                <div class="nav-opt"><i>📁</i> TIENDA DE PROYECTOS</div>
+                <div class="nav-opt"><i>👤</i> TIENDA DE CUENTAS</div>
+                <div class="nav-opt"><i>💰</i> RECARGAS</div>
+                <div class="nav-opt"><i>💬</i> CHAT DE SOPORTE</div>
+                <div class="nav-opt"><i>⚙️</i> CONFIGURACIONES</div>
+                <div class="nav-opt" style="color: #ff4444; margin-top: 15px; border-top: 1px solid #222;" onclick="logout()"><i>🚪</i> CERRAR SESIÓN</div>
+                <div class="nav-opt" style="font-size: 10px; opacity: 0.5;"><i>🎖️</i> CRÉDITOS: @SUPREMEXITS</div>
+            </div>
+        </nav>
+
+        <main class="content">
+            <h2 style="font-family: 'Orbitron'; text-align: center; margin-bottom: 40px;">BIENVENIDO AL <span style="color: var(--primary);">PANEL</span></h2>
+            <div class="grid">
+                <div class="web-card"><h3>TIENDA KEYS</h3><div style="color:var(--primary); font-size: 25px; margin: 15px 0;">🔑</div><button class="btn-main">ENTRAR</button></div>
+                <div class="web-card"><h3>SOPORTE</h3><div style="color:var(--primary); font-size: 25px; margin: 15px 0;">💬</div><button class="btn-main">HABLAR</button></div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCfvk6-vE8iyP-p-RMGBlqmdggjLg1lY7I",
+            authDomain: "sakuritamodz-web.firebaseapp.com",
+            projectId: "sakuritamodz-web",
+            storageBucket: "sakuritamodz-web.firebasestorage.app",
+            messagingSenderId: "1025154676126",
+            appId: "1:1025154676126:web:caa752670a1be2759d528f",
+            measurementId: "G-H545RJGE5N"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // NAVEGACIÓN
+        window.showView = (id) => {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        };
+
+        window.toggleMenu = () => {
+            document.getElementById('side').classList.toggle('active');
+            document.getElementById('ov').style.display = document.getElementById('side').classList.contains('active') ? 'block' : 'none';
+        };
+
+        // LOGIN
+        window.login = () => {
+            const email = document.getElementById('log-email').value;
+            const pass = document.getElementById('log-pass').value;
+            signInWithEmailAndPassword(auth, email, pass)
+                .then(() => { alert("Acceso concedido"); showView('home-view'); })
+                .catch(err => alert("Error: " + err.message));
+        };
+
+        // REGISTRO
+        window.register = () => {
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-pass').value;
+            createUserWithEmailAndPassword(auth, email, pass)
+                .then(() => { alert("Cuenta creada con éxito"); showView('home-view'); })
+                .catch(err => alert("Error: " + err.message));
+        };
+
+        // RECOVERY
+        window.resetPassword = () => {
+            const email = document.getElementById('rec-email').value;
+            sendPasswordResetEmail(auth, email)
+                .then(() => alert("Email de recuperación enviado"))
+                .catch(err => alert(err.message));
+        };
+
+        // LOGOUT
+        window.logout = () => { signOut(auth).then(() => location.reload()); };
+
+        // OBSERVAR SESIÓN
+        onAuthStateChanged(auth, (user) => {
+            if (user) showView('home-view');
+            else showView('login-view');
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#bc13fe" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5 },
-                "size": { "value": 2, "random": true },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 130,
-                    "color": "#bc13fe",
-                    "opacity": 0.3,
-                    "width": 1
-                },
-                "move": { "enable": true, "speed": 1.8 }
-            }
-        });
+        particlesJS("particles-js", { "particles": { "number": { "value": 70 }, "color": { "value": "#bc13fe" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5 }, "size": { "value": 2 }, "line_linked": { "enable": true, "distance": 150, "color": "#bc13fe", "opacity": 0.3, "width": 1 }, "move": { "enable": true, "speed": 2 } } });
     </script>
 </body>
 </html>
+

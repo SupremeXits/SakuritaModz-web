@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VENTAS SAKURITA MODZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* CUADRO COMPACTO */
+        .login-box {
+            background: rgba(8, 8, 8, 0.95);
+            padding: 35px 30px;
+            border-radius: 15px;
+            border: 1px solid #bc13fe;
+            box-shadow: 0 0 30px rgba(188, 19, 254, 0.15);
+            width: 330px;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .login-box h1 span {
+            color: #bc13fe;
+            text-shadow: 0 0 10px #bc13fe;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #444;
+            outline: none;
+            color: #fff;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        /* LÍNEA MORADO NEÓN FOCUS */
+        .input-group input:focus {
+            border-bottom: 2px solid #bc13fe;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            color: #777;
+            font-size: 14px;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus ~ label,
+        .input-group input:valid ~ label {
+            top: -15px;
+            font-size: 11px;
+            color: #bc13fe;
+        }
+
+        /* TEXTOS CLICABLES ARRIBA DEL BOTÓN */
+        .sub-links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px; /* Espacio antes del botón */
+            font-size: 11px;
+        }
+
+        .sub-links a {
+            color: #888;
+            text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .sub-links a:hover {
+            color: #bc13fe;
+            text-shadow: 0 0 5px #bc13fe;
+        }
+
+        /* Subrayado animado neón */
+        .sub-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #bc13fe;
+            box-shadow: 0 0 5px #bc13fe;
+            transition: 0.3s;
+        }
+
+        .sub-links a:hover::after {
+            width: 100%;
+        }
+
+        /* BOTÓN DE ACCESO AL FINAL */
+        .btn-acceder {
+            width: 100%;
+            padding: 12px;
+            background: #bc13fe;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.4s;
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
+            text-transform: uppercase;
+        }
+
+        .btn-acceder:hover {
+            background: #d456ff;
+            box-shadow: 0 0 25px rgba(188, 19, 254, 0.7);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h1>VENTAS <span>SAKURITA MODZ</span></h1>
+            
+            <form>
+                <div class="input-group">
+                    <input type="text" required>
+                    <label>Usuario</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" required>
+                    <label>Contraseña</label>
+                </div>
+
+                <div class="sub-links">
+                    <a href="#">Recuperar contraseña</a>
+                    <a href="#">Crear cuenta</a>
+                </div>
+
+                <button type="submit" class="btn-acceder">ACCEDER</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#bc13fe" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5 },
+                "size": { "value": 2, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 130,
+                    "color": "#bc13fe",
+                    "opacity": 0.3,
+                    "width": 1
+                },
+                "move": { "enable": true, "speed": 1.8 }
+            }
+        });
+    </script>
+</body>
+</html>

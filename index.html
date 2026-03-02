@@ -4,159 +4,156 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAKURITA MODZ | OFFICIAL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SAKURITA MODZ | SUPREME V33</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #bc13fe; --primary-glow: rgba(188, 19, 254, 0.6); --bg-dark: #050505; --card-bg: rgba(10, 10, 10, 0.9); }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { height: 100%; background: #000; font-family: 'Poppins', sans-serif; color: #fff; overflow-x: hidden; }
-
-        /* CONTROL DE VISTAS */
-        .view { display: none; width: 100%; min-height: 100vh; }
-        .view.active { display: block; }
+        :root { --primary: #bc13fe; --neon: #00ff7f; --bg: #000; --card: rgba(15, 15, 15, 0.98); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body, html { background: #000; color: #fff; overflow: hidden; height: 100vh; width: 100vw; }
+        
         #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-        /* ESTILOS LOGIN / REGISTRO */
-        .auth-screen { display: flex; justify-content: center; align-items: center; height: 100vh; position: relative; z-index: 2; }
-        .auth-box { background: rgba(8, 8, 8, 0.95); padding: 35px; border-radius: 20px; border: 1px solid var(--primary); width: 90%; max-width: 350px; text-align: center; box-shadow: 0 0 25px rgba(188, 19, 254, 0.2); }
-        .auth-box h1 { font-family: 'Orbitron'; font-size: 1.1rem; margin-bottom: 25px; }
-        .auth-box h1 span { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-        .input-group { position: relative; margin-bottom: 25px; text-align: left; }
-        .input-group input { width: 100%; padding: 10px 0; background: transparent; border: none; border-bottom: 1px solid #444; outline: none; color: #fff; }
-        .input-group label { position: absolute; top: 10px; left: 0; color: #777; transition: 0.3s; pointer-events: none; }
-        .input-group input:focus ~ label, .input-group input:valid ~ label { top: -15px; font-size: 11px; color: var(--primary); }
-        .btn-main { width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 8px; color: #fff; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        /* PANTALLA DE CARGA */
+        #loading-screen { position: fixed; inset: 0; background: #000; z-index: 20000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(188, 19, 254, 0.2); border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* --- HOME & DRAWABLE BUG FIXED --- */
-        header { position: fixed; top: 0; width: 100%; height: 70px; z-index: 100; display: flex; align-items: center; padding: 0 20px; background: rgba(0,0,0,0.9); border-bottom: 1px solid rgba(188,19,254,0.2); backdrop-filter: blur(10px); }
-        .menu-btn { font-size: 28px; color: var(--primary); cursor: pointer; margin-right: 15px; z-index: 1100; }
-        
-        /* DRAWABLE (MENÚ LATERAL) */
-        .drawer { position: fixed; top: 0; left: -310px; width: 300px; height: 100vh; background: #080808; border-right: 2px solid var(--primary); z-index: 1050; transition: 0.4s ease-in-out; }
-        .drawer.active { left: 0; box-shadow: 10px 0 50px rgba(0,0,0,0.8); }
-        
-        /* ICONO Y TEXTO LARGO SEPARADO */
-        .drawer-header { padding: 40px 20px; text-align: center; border-bottom: 1px solid #1a1a1a; }
-        .drawer-icon { width: 65px; height: 65px; background: #111; border: 2px solid var(--primary); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 0 15px var(--primary); }
-        .drawer-title { font-family: 'Orbitron'; font-size: 15px; color: #fff; letter-spacing: 2px; font-weight: 900; }
+        /* VISTAS */
+        .view { display: none; position: absolute; inset: 0; z-index: 10; width: 100%; height: 100%; overflow-y: auto; align-items: center; justify-content: center; padding: 20px; }
+        .view.active { display: flex; flex-direction: column; }
+        .view.home-active { display: block; padding: 0; }
 
-        .nav-links { padding: 20px 10px; }
-        .nav-opt { padding: 14px 18px; margin-bottom: 5px; border-radius: 10px; cursor: pointer; transition: 0.3s; color: #bbb; display: flex; align-items: center; gap: 15px; font-size: 12px; font-family: 'Orbitron'; }
-        .nav-opt:hover { background: rgba(188, 19, 254, 0.1); color: #fff; transform: translateX(5px); }
-        .nav-opt i { color: var(--primary); font-style: normal; font-size: 16px; }
+        .home-section { display: none; padding: 20px; padding-bottom: 100px; animation: fadeIn 0.3s ease; }
+        .home-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* CONTENIDO HOME */
-        .content { padding: 100px 20px 50px; position: relative; z-index: 5; max-width: 1200px; margin: 0 auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .web-card { background: var(--card-bg); border: 1px solid #222; border-radius: 20px; padding: 20px; text-align: center; border-bottom: 3px solid var(--primary); transition: 0.3s; }
-        .web-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .card-img { height: 120px; background: #151515; border-radius: 15px; margin-bottom: 15px; border: 1px solid #222; }
+        /* AUTH BOXES */
+        .auth-box { background: rgba(5, 5, 5, 0.95); padding: 35px 25px; border-radius: 20px; border: 1px solid var(--primary); width: 100%; max-width: 350px; text-align: center; z-index: 20; box-shadow: 0 0 20px rgba(188, 19, 254, 0.2); }
+        .input-group { position: relative; margin-bottom: 25px; width: 100%; }
+        .input-group input { width: 100%; padding: 10px 5px; background: transparent; border: none; border-bottom: 1px solid #333; color: #fff; outline: none; }
+        .input-group label { position: absolute; top: 10px; left: 5px; color: #666; transition: 0.3s; pointer-events: none; font-size: 14px; }
+        .input-group input:focus ~ label, .input-group input:valid ~ label { top: -18px; font-size: 11px; color: var(--primary); }
+        .btn-main { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; }
 
-        /* MODAL */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-card { background: #0a0a0a; padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 320px; text-align: center; }
-        .overlay-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1040; display: none; }
+        /* HEADER & DRAWABLE */
+        header { width: 100%; height: 70px; background: rgba(5,5,5,0.98); display: flex; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
+        .menu-icon { font-size: 28px; color: var(--primary); cursor: pointer; padding: 5px; }
+        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 8000; display: none; backdrop-filter: blur(4px); }
+        .drawer { position: fixed; top: 0; left: -310px; width: 300px; height: 100vh; background: #080808; border-right: 3px solid var(--primary); z-index: 9999; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
+        .drawer.active { left: 0 !important; }
+        .nav-opt { padding: 15px 25px; display: flex; align-items: center; gap: 20px; cursor: pointer; color: #ddd; font-size: 12px; }
+        .nav-opt i { font-style: normal; font-size: 22px; color: var(--primary); width: 30px; text-align: center; }
+
+        /* CARDS ESTILO SAKURITA */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; padding: 0 20px; }
+        .card-view { background: var(--card); border-radius: 15px; border: 1px solid #222; border-bottom: 3px solid var(--primary); text-align: center; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .card-view:active { transform: scale(0.95); }
+        .card-img { width: 100%; height: 100px; object-fit: contain; background: #111; padding: 15px; }
+        .card-title { font-family: 'Orbitron'; font-size: 11px; padding: 12px 5px; }
+
+        /* MODAL DE DATOS */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #0a0a0a; border: 2px solid var(--primary); border-radius: 20px; width: 100%; max-width: 320px; padding: 25px; text-align: center; position: relative; }
+        .data-box { background: #111; padding: 15px; border-radius: 10px; margin: 15px 0; border: 1px dashed var(--primary); }
+        .data-box span { display: block; font-size: 10px; color: #666; text-transform: uppercase; margin-bottom: 5px; }
+        .data-box b { font-size: 14px; color: var(--neon); font-family: 'Orbitron'; word-break: break-all; }
     </style>
 </head>
 <body>
 
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p style="margin-top:20px; font-family:Orbitron; font-size:10px; letter-spacing:2px; color:var(--primary);">CARGANDO SAKURITA...</p>
+    </div>
+
     <div id="particles-js"></div>
     <div class="overlay-bg" id="ov" onclick="toggleMenu()"></div>
 
-    <div id="v-login" class="view active">
-        <div class="auth-screen">
-            <div class="auth-box">
-                <h1>VENTAS <span>SAKURITA</span></h1>
-                <div class="input-group"><input type="email" id="l-email" required><label>Email</label></div>
-                <div class="input-group"><input type="password" id="l-pass" required><label>Contraseña</label></div>
-                <div class="sub-links">
-                    <a onclick="showView('v-recovery')">¿Olvidaste la clave?</a>
-                    <a onclick="showView('v-register')">Crear cuenta</a>
-                </div>
-                <button class="btn-main" onclick="login()">ACCEDER</button>
-            </div>
+    <nav class="drawer" id="side">
+        <div style="padding: 30px; text-align: center; border-bottom: 1px solid #222;">
+            <h2 style="font-family:'Orbitron'; color:var(--primary); font-size:14px;">SAKURITA MODZ</h2>
+        </div>
+        <div style="flex:1; overflow-y:auto;">
+            <div class="nav-opt" onclick="showSection('sec-tienda')"><i>🔑</i> <span>Tienda de Keys</span></div>
+            <div class="nav-opt" onclick="showSection('sec-pagos')"><i>💳</i> <span>Recargas / Pagos</span></div>
+            <div class="nav-opt" onclick="showSection('sec-soporte')"><i>💬</i> <span>Chat de Soporte</span></div>
+            <div class="nav-opt" onclick="showSection('sec-creditos')"><i>🏆</i> <span>Créditos</span></div>
+            <div class="nav-opt" onclick="handleLogout()" style="color:#ff4444; border-top:1px solid #222; margin-top:10px;"><i>🚪</i> <span>Cerrar Sesión</span></div>
+        </div>
+    </nav>
+
+    <div id="v-login" class="view">
+        <div class="auth-box">
+            <h1 style="font-family:Orbitron; font-size:1.2rem; margin-bottom:25px;">LOGIN <span style="color:var(--primary)">SAKURITA</span></h1>
+            <div class="input-group"><input type="email" id="l-email" required><label>Email</label></div>
+            <div class="input-group"><input type="password" id="l-pass" required><label>Contraseña</label></div>
+            <button class="btn-main" onclick="handleLogin()">INICIAR SESIÓN</button>
+            <p style="margin-top:20px; font-size:11px; color:#666">¿No tienes cuenta? <span onclick="nav('v-reg')" style="color:var(--primary); cursor:pointer;">Regístrate</span></p>
         </div>
     </div>
 
-    <div id="v-register" class="view">
-        <div class="auth-screen">
-            <div class="auth-box">
-                <h1>CREAR <span>CUENTA</span></h1>
-                <div class="input-group"><input type="email" id="r-email" required><label>Email</label></div>
-                <div class="input-group"><input type="password" id="r-pass" required><label>Contraseña</label></div>
-                <div class="sub-links" style="justify-content:center"><a onclick="showView('v-login')">Volver al login</a></div>
-                <button class="btn-main" onclick="register()">REGISTRARSE</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="v-recovery" class="view">
-        <div class="auth-screen">
-            <div class="auth-box">
-                <h1>RECUPERAR <span>SISTEMA</span></h1>
-                <div class="input-group"><input type="email" id="rc-email" required><label>Email</label></div>
-                <button class="btn-main" onclick="recovery()">ENVIAR CLAVE</button>
-                <div class="sub-links" style="justify-content:center; margin-top:15px"><a onclick="showView('v-login')">Volver</a></div>
-            </div>
+    <div id="v-reg" class="view">
+        <div class="auth-box">
+            <h1>REGISTRO</h1>
+            <div class="input-group"><input type="text" id="r-name" required><label>Usuario</label></div>
+            <div class="input-group"><input type="email" id="r-email" required><label>Correo</label></div>
+            <div class="input-group"><input type="password" id="r-pass" required><label>Clave</label></div>
+            <button class="btn-main" onclick="handleRegister()">CREAR CUENTA</button>
+            <p onclick="nav('v-login')" style="margin-top:20px; font-size:11px; color:var(--primary); cursor:pointer;">Volver</p>
         </div>
     </div>
 
     <div id="v-home" class="view">
         <header>
-            <div class="menu-btn" onclick="toggleMenu()">☰</div>
-            <div style="font-family: 'Orbitron'; font-weight: 800; font-size: 1.1rem;">SAKURITA <span style="color: var(--primary);">MODZ</span></div>
-            <div style="margin-left: auto; color: #00ff7f; font-family: 'Orbitron'; font-size: 12px; border: 1px solid #00ff7f; padding: 5px 10px; border-radius: 20px;">ONLINE</div>
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+            <div style="font-family:'Orbitron'; font-size:14px; margin-left:15px;">SAKURITA <span style="color:var(--primary)">MODZ</span></div>
+            <div id="u-balance" style="margin-left:auto; color:var(--neon); font-family:Orbitron; font-size:11px; border:1px solid var(--neon); padding:5px 10px; border-radius:20px;">$0.00</div>
         </header>
 
-        <nav class="drawer" id="side">
-            <div class="drawer-header">
-                <div class="drawer-icon">🌸</div>
-                <div class="drawer-title">SAKURITA MODZ</div>
-            </div>
-            <div class="nav-links">
-                <div class="nav-opt"><i>📊</i> DASHBOARD</div>
-                <div class="nav-opt"><i>🔑</i> TIENDA DE KEYS</div>
-                <div class="nav-opt"><i>📁</i> TIENDA DE PROYECTOS</div>
-                <div class="nav-opt"><i>👤</i> TIENDA DE CUENTAS</div>
-                <div class="nav-opt"><i>💰</i> RECARGAS</div>
-                <div class="nav-opt"><i>💬</i> CHAT DE SOPORTE</div>
-                <div class="nav-opt"><i>⚙️</i> CONFIGURACIONES</div>
-                <div class="nav-opt" style="color: #ff4444; margin-top: 20px; border-top: 1px solid #222;" onclick="logout()"><i>🚪</i> CERRAR SESIÓN</div>
-                <div class="nav-opt" style="font-size: 9px; opacity: 0.5;"><i>🎖️</i> CRÉDITOS: @SUPREMEXITS</div>
-            </div>
-        </nav>
+        <div id="sec-tienda" class="home-section active">
+            <h3 style="font-family:Orbitron; font-size:11px; margin:20px; color:var(--primary);">KEY STORE</h3>
+            <div class="grid" id="grid-shop"></div>
+        </div>
 
-        <main class="content">
-            <h2 style="font-family: 'Orbitron'; text-align: center; margin-bottom: 40px;">BIENVENIDO <span style="color: var(--primary);">LÍDER</span></h2>
-            <div class="grid">
-                <div class="web-card"><div class="card-img"></div><h3>HG VIP</h3><div style="color:var(--primary); margin:10px 0">$2.50</div><button class="btn-main" onclick="openMod()">COMPRAR</button></div>
-                <div class="web-card"><div class="card-img"></div><h3>DRIP CLIENT</h3><div style="color:var(--primary); margin:10px 0">$3.00</div><button class="btn-main" onclick="openMod()">COMPRAR</button></div>
-                <div class="web-card"><div class="card-img"></div><h3>SAKURITA VIP</h3><div style="color:var(--primary); margin:10px 0">$5.00</div><button class="btn-main" onclick="openMod()">COMPRAR</button></div>
-                <div class="web-card"><div class="card-img"></div><h3>SUPREME MODZ</h3><div style="color:var(--primary); margin:10px 0">$10.00</div><button class="btn-main" onclick="openMod()">COMPRAR</button></div>
-                <div class="web-card"><div class="card-img"></div><h3>GLOBAL PANEL</h3><div style="color:var(--primary); margin:10px 0">$15.00</div><button class="btn-main" onclick="openMod()">COMPRAR</button></div>
+        <div id="sec-pagos" class="home-section">
+            <h3 style="font-family:Orbitron; font-size:11px; margin:20px; color:var(--primary);">MÉTODOS DE PAGO</h3>
+            <div class="grid" id="grid-pagos">
+                </div>
+        </div>
+
+        <div id="sec-soporte" class="home-section">
+            <h3 style="font-family:Orbitron; font-size:11px; margin:20px; color:var(--primary);">SOPORTE</h3>
+            <div style="padding:20px; text-align:center;">
+                <button class="btn-main" onclick="window.open('https://wa.me/TuNum','_blank')">WhatsApp</button>
             </div>
-        </main>
+        </div>
     </div>
 
-    <div class="modal-overlay" id="mod">
-        <div class="modal-card">
-            <h3 style="font-family: 'Orbitron'; margin-bottom: 20px;">DURACIÓN</h3>
-            <div style="background:#111; padding:12px; border-radius:10px; margin-bottom:10px; cursor:pointer">1 DÍA - $1.50</div>
-            <div style="background:#111; padding:12px; border-radius:10px; margin-bottom:10px; cursor:pointer">7 DÍAS - $6.00</div>
-            <button class="btn-main" style="margin-top:10px">PAGAR AHORA</button>
-            <p onclick="closeMod()" style="margin-top:15px; font-size:11px; cursor:pointer; opacity:0.5">CERRAR</p>
+    <div class="modal" id="modal-pay">
+        <div class="modal-content">
+            <h2 id="pay-title" style="font-family:Orbitron; font-size:14px; color:var(--primary);">DATOS DE PAGO</h2>
+            <div id="pay-data-container">
+                <div class="data-box">
+                    <span>Cargando datos...</span>
+                </div>
+            </div>
+            <p style="font-size:10px; color:#666; margin-bottom:15px;">Envía captura al soporte tras pagar.</p>
+            <button class="btn-main" onclick="closePayModal()" style="font-size:10px; padding:10px;">ENTENDIDO</button>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCfvk6-vE8iyP-p-RMGBlqmdggjLg1lY7I",
             authDomain: "sakuritamodz-web.firebaseapp.com",
             projectId: "sakuritamodz-web",
+            databaseURL: "https://sakuritamodz-web-default-rtdb.firebaseio.com",
             storageBucket: "sakuritamodz-web.firebasestorage.app",
             messagingSenderId: "1025154676126",
             appId: "1:1025154676126:web:caa752670a1be2759d528f"
@@ -164,43 +161,120 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const dbFS = getFirestore(app);
+        const dbRT = getDatabase(app);
 
-        window.showView = (id) => {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        window.nav = (id) => {
+            document.querySelectorAll('.view').forEach(v => { v.classList.remove('active', 'home-active'); v.style.display='none'; });
+            const t = document.getElementById(id);
+            if(id === 'v-home') { t.classList.add('home-active'); t.style.display='block'; } 
+            else { t.classList.add('active'); t.style.display='flex'; }
+        };
+
+        window.showSection = (id) => {
+            document.querySelectorAll('.home-section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            toggleMenu();
         };
 
         window.toggleMenu = () => {
-            const side = document.getElementById('side');
-            const ov = document.getElementById('ov');
-            side.classList.toggle('active');
-            ov.style.display = side.classList.contains('active') ? 'block' : 'none';
+            const side = document.getElementById('side'), over = document.getElementById('ov');
+            const isOpen = side.classList.toggle('active');
+            over.style.display = isOpen ? 'block' : 'none';
         };
 
-        window.openMod = () => document.getElementById('mod').style.display = 'flex';
-        window.closeMod = () => document.getElementById('mod').style.display = 'none';
+        // --- LÓGICA DE PAGO DESDE REALTIME DATABASE (config/pagos) ---
+        window.openPaymentModal = (methodId) => {
+            const modal = document.getElementById('modal-pay');
+            const container = document.getElementById('pay-data-container');
+            modal.style.display = 'flex';
+            container.innerHTML = '<div class="data-box"><span>Buscando...</span></div>';
 
-        window.login = () => {
-            signInWithEmailAndPassword(auth, document.getElementById('l-email').value, document.getElementById('l-pass').value)
-            .catch(e => alert("Error: " + e.message));
+            // Ruta exacta de tu captura: config/pagos/ID
+            const payRef = ref(dbRT, `config/pagos/${methodId}`);
+            onValue(payRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    container.innerHTML = `
+                        <div class="data-box">
+                            <span>MÉTODO</span>
+                            <b>${data.name || 'Sin nombre'}</b>
+                        </div>
+                        <div class="data-box">
+                            <span>DETALLES / NÚMERO</span>
+                            <b>${data.details || 'Sin detalles'}</b>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = '<div class="data-box"><span>Datos no encontrados</span></div>';
+                }
+            }, { onlyOnce: true });
         };
 
-        window.register = () => {
-            createUserWithEmailAndPassword(auth, document.getElementById('r-email').value, document.getElementById('r-pass').value)
-            .catch(e => alert(e.message));
-        };
+        window.closePayModal = () => { document.getElementById('modal-pay').style.display = 'none'; };
 
-        window.logout = () => signOut(auth).then(() => location.reload());
+        onAuthStateChanged(auth, (user) => {
+            const loader = document.getElementById('loading-screen');
+            if (user) {
+                nav('v-home');
+                
+                // Saldo desde Firestore
+                onSnapshot(doc(dbFS, "users", user.uid), (s) => {
+                    if(s.exists()) document.getElementById('u-balance').innerText = `$${s.data().balance.toFixed(2)}`;
+                });
 
-        onAuthStateChanged(auth, user => {
-            if (user) showView('v-home');
-            else showView('v-login');
+                // Cargar Keys desde RTDB
+                onValue(ref(dbRT, 'shop/keys'), (snap) => {
+                    const grid = document.getElementById('grid-shop');
+                    grid.innerHTML = '';
+                    snap.forEach((child) => {
+                        const data = child.val();
+                        grid.innerHTML += `<div class="card-view"><img src="${data.image || ''}" class="card-img"><h4 class="card-title">${data.name}</h4></div>`;
+                    });
+                });
+
+                // CARGAR MÉTODOS DE PAGO DESDE config/pagos (RTDB)
+                onValue(ref(dbRT, 'config/pagos'), (snap) => {
+                    const gridPagos = document.getElementById('grid-pagos');
+                    gridPagos.innerHTML = '';
+                    snap.forEach((child) => {
+                        const data = child.val();
+                        // Si el nombre es YAPE, ponemos su logo oficial
+                        let logo = (data.name && data.name.includes("YAPE")) ? "https://i.ibb.co/680L9Yf/yape-logo.png" : "";
+                        let style = logo ? 'style="background:#742384;"' : '';
+                        
+                        gridPagos.innerHTML += `
+                            <div class="card-view" onclick="openPaymentModal('${child.key}')">
+                                <img src="${logo || 'https://cdn-icons-png.flaticon.com/512/4341/4341764.png'}" class="card-img" ${style}>
+                                <h4 class="card-title">${data.name}</h4>
+                            </div>`;
+                    });
+                });
+
+            } else { nav('v-login'); }
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
         });
+
+        window.handleLogin = async () => {
+            const e = document.getElementById('l-email').value, p = document.getElementById('l-pass').value;
+            try { await signInWithEmailAndPassword(auth, e, p); } catch(err) { alert("Error de acceso"); }
+        };
+
+        window.handleLogout = async () => { await signOut(auth); };
     </script>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS("particles-js", { "particles": { "number": { "value": 60 }, "color": { "value": "#bc13fe" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5 }, "size": { "value": 2 }, "line_linked": { "enable": true, "distance": 150, "color": "#bc13fe", "opacity": 0.3, "width": 1 }, "move": { "enable": true, "speed": 2 } } });
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 160 },
+                "color": { "value": "#bc13fe" },
+                "opacity": { "value": 0.7, "random": true },
+                "size": { "value": 1, "random": true },
+                "line_linked": { "enable": true, "distance": 80, "color": "#bc13fe", "opacity": 0.1 },
+                "move": { "enable": true, "speed": 1 }
+            }
+        });
     </script>
 </body>
 </html>

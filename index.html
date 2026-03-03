@@ -12,147 +12,154 @@
         :root { --primary: #bc13fe; --neon: #00ff7f; --bg: #000; --card: rgba(15, 15, 15, 0.98); --red: #ff3131; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         body, html { background: #000; color: #fff; overflow: hidden; height: 100vh; width: 100vw; }
-        
         #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-        /* TOAST PERSONALIZADO (ALERTAS IGUAL A LA PAGINA) */
-        #toast-container { position: fixed; top: 20px; left: 20px; right: 20px; z-index: 30000; pointer-events: none; }
-        .toast { background: #0a0a0a; border-left: 5px solid var(--primary); padding: 15px; border-radius: 10px; margin-bottom: 10px; font-size: 11px; box-shadow: 0 5px 15px #000; animation: slideIn 0.3s ease; color: #fff; border: 1px solid #222; font-family: 'Orbitron'; }
-        .toast.error { border-left-color: var(--red); }
+        /* TOASTS */
+        #toast-container { position: fixed; top: 20px; right: 20px; z-index: 99999; pointer-events: none; }
+        .toast { background: rgba(10,10,10,0.95); border-left: 4px solid var(--primary); color: #fff; padding: 15px 25px; border-radius: 8px; font-family: 'Orbitron'; font-size: 11px; margin-bottom: 10px; border: 1px solid #222; animation: slideIn 0.3s ease forwards; pointer-events: auto; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        /* PANTALLA DE CARGA */
-        #loading-screen { position: fixed; inset: 0; background: #000; z-index: 20000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .spinner { width: 40px; height: 40px; border: 3px solid rgba(188, 19, 254, 0.2); border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        /* AUTH */
+        .auth-view { position: fixed; inset: 0; z-index: 5000; display: flex; align-items: center; justify-content: center; background: #000; }
+        .auth-container { width: 90%; max-width: 350px; background: rgba(15, 15, 15, 0.9); border: 1px solid rgba(188, 19, 254, 0.4); border-top: 4px solid var(--primary); border-radius: 20px; padding: 35px 25px; text-align: center; z-index: 10; backdrop-filter: blur(10px); }
+        .input-box { width: 100%; margin-bottom: 15px; }
+        .input-box input, .input-box textarea { width: 100%; background: #0a0a0a; border: 1px solid #222; padding: 12px 15px; border-radius: 10px; color: #fff; outline: none; font-size: 13px; }
 
-        /* VISTAS */
-        .view { display: none; position: absolute; inset: 0; z-index: 10; width: 100%; height: 100%; overflow-y: auto; align-items: center; justify-content: center; padding: 20px; }
-        .view.active { display: flex; flex-direction: column; }
-        .view.home-active { display: block; padding: 0; }
-
-        .home-section { display: none; padding: 20px; padding-bottom: 100px; animation: fadeIn 0.3s ease; }
-        .home-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* AUTH BOXES (RESTAURADOS) */
-        .auth-box { background: rgba(5, 5, 5, 0.95); padding: 35px 25px; border-radius: 20px; border: 1px solid var(--primary); width: 100%; max-width: 350px; text-align: center; z-index: 20; box-shadow: 0 0 20px rgba(188, 19, 254, 0.2); }
-        .input-group { position: relative; margin-bottom: 25px; width: 100%; }
-        .input-group input { width: 100%; padding: 10px 5px; background: transparent; border: none; border-bottom: 1px solid #333; color: #fff; outline: none; }
-        .input-group label { position: absolute; top: 10px; left: 5px; color: #666; transition: 0.3s; pointer-events: none; font-size: 14px; }
-        .input-group input:focus ~ label, .input-group input:valid ~ label { top: -18px; font-size: 11px; color: var(--primary); }
-
-        /* HEADER & DRAWABLE */
-        header { width: 100%; height: 70px; background: rgba(5,5,5,0.98); display: flex; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
+        /* PANEL */
+        .main-view { display: none; height: 100vh; width: 100vw; flex-direction: column; }
+        header { width: 100%; height: 70px; background: rgba(5,5,5,0.98); display: flex; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); z-index: 1000; }
         .menu-icon { font-size: 28px; color: var(--primary); cursor: pointer; }
-        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 8000; display: none; backdrop-filter: blur(4px); }
-        .drawer { position: fixed; top: 0; left: -310px; width: 300px; height: 100vh; background: #080808; border-right: 3px solid var(--primary); z-index: 9999; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .drawer { position: fixed; top: 0; left: -310px; width: 300px; height: 100vh; background: #080808; border-right: 3px solid var(--primary); z-index: 9999; transition: 0.4s; display: flex; flex-direction: column; }
         .drawer.active { left: 0 !important; }
         .nav-opt { padding: 15px 25px; display: flex; align-items: center; gap: 20px; cursor: pointer; color: #ddd; font-size: 12px; border-bottom: 1px solid #111; }
-        .nav-opt i { font-style: normal; font-size: 20px; color: var(--primary); width: 25px; }
+        .nav-opt i { font-style: normal; font-size: 20px; color: var(--primary); width: 25px; text-align: center; }
 
-        /* CARDS */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; padding: 0 15px; }
-        .card-view { background: var(--card); border-radius: 15px; border: 1px solid #222; border-bottom: 3px solid var(--primary); text-align: center; overflow: hidden; cursor: pointer; transition: 0.2s; }
-        .card-img { width: 100%; height: 90px; object-fit: contain; background: #050505; padding: 10px; }
+        .content-area { flex: 1; overflow-y: auto; padding-bottom: 80px; }
+        .home-section { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
+        .home-section.active { display: block; }
+        
+        .section-title { font-family: 'Orbitron'; font-size: 12px; color: var(--primary); margin: 20px 0 10px 0; display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(188, 19, 254, 0.2); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
+        .card-view { background: var(--card); border-radius: 15px; border: 1px solid #222; border-bottom: 3px solid var(--primary); text-align: center; overflow: hidden; cursor: pointer; position: relative; }
+        .card-img { width: 100%; height: 100px; object-fit: contain; background: #111; padding: 10px; }
         .card-title { font-family: 'Orbitron'; font-size: 10px; padding: 10px 5px; color: #fff; }
+        .price-tag { position: absolute; top: 5px; right: 5px; background: var(--primary); font-size: 9px; padding: 2px 7px; border-radius: 5px; font-weight: bold; }
 
         /* MODALES */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #0a0a0a; border: 2px solid var(--primary); border-radius: 20px; width: 100%; max-width: 320px; padding: 25px; text-align: center; position: relative; }
-        .data-box { background: #111; padding: 15px; border-radius: 10px; margin: 15px 0; border: 1px dashed var(--primary); }
-        .data-box b { font-size: 14px; color: var(--neon); font-family: 'Orbitron'; word-break: break-all; }
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
+        .modal-content { background: #0a0a0a; border: 2px solid var(--primary); border-radius: 20px; width: 100%; max-width: 320px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
+        .price-item { background:#111; padding:12px; border-radius:12px; margin-bottom:10px; border: 1px solid #222; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+        .btn-main { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; font-size: 11px; margin-top: 10px; }
+        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 8000; display: none; }
         
-        .price-item { background: #111; padding: 12px; border-radius: 12px; border: 1px solid #222; display: flex; justify-content: space-between; margin-bottom: 8px; cursor: pointer; font-size: 12px; }
-        .price-item.selected { border-color: var(--neon); background: rgba(0,255,127,0.05); }
+        /* RECARGAS EXTRA */
+        .file-input-label { display: block; background: #111; border: 1px dashed var(--primary); padding: 15px; border-radius: 10px; cursor: pointer; font-size: 11px; margin-bottom: 10px; color: #aaa; }
+        #preview-img { width: 100%; max-height: 150px; object-fit: cover; border-radius: 10px; margin-top: 10px; display: none; border: 1px solid var(--primary); }
 
-        .btn-main { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; font-size: 11px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div id="toast-container"></div>
-    <div id="loading-screen"><div class="spinner"></div></div>
     <div id="particles-js"></div>
+    <div id="toast-container"></div>
     <div class="overlay-bg" id="ov" onclick="toggleMenu()"></div>
 
-    <div id="v-login" class="view">
-        <div class="auth-box">
-            <h1 style="font-family:Orbitron; font-size:1.2rem; margin-bottom:25px;">LOGIN <span style="color:var(--primary)">SAKURITA</span></h1>
-            <div class="input-group"><input type="email" id="l-email" required><label>Email</label></div>
-            <div class="input-group"><input type="password" id="l-pass" required><label>Contraseña</label></div>
-            <button class="btn-main" onclick="handleLogin()">INICIAR SESIÓN</button>
-            <p style="margin-top:20px; font-size:11px; color:#666">¿No tienes cuenta? <span onclick="nav('v-reg')" style="color:var(--primary); cursor:pointer;">Regístrate</span></p>
+    <div class="auth-view" id="v-auth">
+        <div class="auth-container" id="box-login">
+            <h1 style="font-family:'Orbitron';">SAKURITA <span style="color:var(--primary)">MODZ</span></h1>
+            <div class="input-box"><input type="email" id="l-email" placeholder="Correo Electrónico"></div>
+            <div class="input-box"><input type="password" id="l-pass" placeholder="Contraseña"></div>
+            <button class="btn-main" onclick="handleLogin()">ACCEDER</button>
+            <p style="font-size:11px; margin-top:15px;">¿No tienes cuenta? <b style="color:var(--primary); cursor:pointer;" onclick="toggleAuth()">Regístrate</b></p>
+        </div>
+        <div class="auth-container" id="box-reg" style="display:none;">
+            <h1 style="font-family:'Orbitron';">SAKURITA <span style="color:var(--primary)">MODZ</span></h1>
+            <div class="input-box"><input type="text" id="r-name" placeholder="Usuario"></div>
+            <div class="input-box"><input type="email" id="r-email" placeholder="Correo"></div>
+            <div class="input-box"><input type="password" id="r-pass" placeholder="Contraseña (Min. 6)"></div>
+            <button class="btn-main" onclick="handleRegister()">REGISTRARME</button>
+            <p style="font-size:11px; margin-top:15px;">¿Ya tienes cuenta? <b style="color:var(--primary); cursor:pointer;" onclick="toggleAuth()">Login</b></p>
         </div>
     </div>
 
-    <div id="v-reg" class="view">
-        <div class="auth-box">
-            <h1 style="font-family:Orbitron; font-size:1.2rem; margin-bottom:25px;">REGISTRO</h1>
-            <div class="input-group"><input type="email" id="r-email" required><label>Email</label></div>
-            <div class="input-group"><input type="password" id="r-pass" required><label>Clave</label></div>
-            <button class="btn-main" onclick="handleRegister()">CREAR CUENTA</button>
-            <p onclick="nav('v-login')" style="margin-top:20px; font-size:11px; color:var(--primary); cursor:pointer;">Volver</p>
-        </div>
-    </div>
-
-    <nav class="drawer" id="side">
-        <div style="padding: 30px; text-align: center; border-bottom: 1px solid #222;">
-            <h2 style="font-family:'Orbitron'; color:var(--primary); font-size:14px;">SAKURITA MENU</h2>
-        </div>
-        <div class="nav-opt" onclick="showSection('sec-tienda')"><i>🔑</i> <span>Tienda de Keys</span></div>
-        <div class="nav-opt" onclick="showSection('sec-pagos')"><i>💳</i> <span>Recargas / Pagos</span></div>
-        <div class="nav-opt" onclick="handleLogout()" style="color:var(--red)"><i>🚪</i> <span>Cerrar Sesión</span></div>
-    </nav>
-
-    <div id="v-home" class="view">
+    <div class="main-view" id="v-panel">
         <header>
             <div class="menu-icon" onclick="toggleMenu()">☰</div>
-            <div style="font-family:'Orbitron'; font-size:12px; margin-left:15px;">SAKURITA <span style="color:var(--primary)">V33</span></div>
-            <div id="u-balance" style="margin-left:auto; color:var(--neon); font-family:Orbitron; font-size:10px; border:1px solid var(--neon); padding:5px 10px; border-radius:20px;">$0.00</div>
+            <div style="font-family:'Orbitron'; font-size:14px; margin-left:15px;">SAKURITA <span style="color:var(--primary)">MODZ</span></div>
+            <div id="u-balance" style="margin-left:auto; color:var(--neon); font-family:Orbitron; font-size:11px; border:1px solid var(--neon); padding:5px 12px; border-radius:20px;">$0.00</div>
         </header>
 
-        <section id="sec-tienda" class="home-section active">
-            <h3 style="font-family:Orbitron; font-size:10px; margin:20px; color:var(--primary);">COMPRAR KEYS</h3>
-            <div class="grid" id="grid-shop"></div>
-        </section>
+        <nav class="drawer" id="side">
+            <div style="padding: 30px; text-align: center; border-bottom: 1px solid #222;">
+                <h2 style="font-family:'Orbitron'; color:var(--primary); font-size:14px;">MENÚ</h2>
+            </div>
+            <div class="nav-opt" onclick="showSection('sec-dash')"><i>🏠</i> <span>Dashboard</span></div>
+            <div class="nav-opt" onclick="showSection('sec-keys')"><i>🔑</i> <span>Tienda de Keys</span></div>
+            <div class="nav-opt" onclick="showSection('sec-proy')"><i>📂</i> <span>Tienda de Proyectos</span></div>
+            <div class="nav-opt" onclick="showSection('sec-serv')"><i>👤</i> <span>Tienda de Cuentas</span></div>
+            <div class="nav-opt" onclick="showSection('sec-pagos')"><i>💳</i> <span>Recargas</span></div>
+            <div class="nav-opt" onclick="showSection('sec-chat')"><i>💬</i> <span>Soporte</span></div>
+            <div class="nav-opt" onclick="showSection('sec-dash')"><i>⚙️</i> <span>Configuraciones</span></div>
+            <div class="nav-opt" onclick="alert('Sakurita Modz V33')"><i>🌟</i> <span>Créditos</span></div>
+            <div class="nav-opt" onclick="handleLogout()" style="color:var(--red); margin-top:auto;"><i>🚪</i> <span>Cerrar Sesión</span></div>
+        </nav>
 
-        <section id="sec-pagos" class="home-section">
-            <h3 style="font-family:Orbitron; font-size:10px; margin:20px; color:var(--primary);">MÉTODOS DE RECARGA</h3>
-            <div class="grid" id="grid-pagos"></div>
-        </section>
-    </div>
+        <div class="content-area">
+            <section id="sec-dash" class="home-section active">
+                <div class="section-title">TOP KEYS</div>
+                <div class="grid" id="dash-keys"></div>
+                <div class="section-title">PROYECTOS DESTACADOS</div>
+                <div class="grid" id="dash-proy"></div>
+                <div class="section-title">CUENTAS DISPONIBLES</div>
+                <div class="grid" id="dash-serv"></div>
+            </section>
 
-    <div class="modal" id="modal-key-sel">
-        <div class="modal-content">
-            <h2 id="sel-key-name" style="font-family:Orbitron; font-size:13px; color:var(--primary);">PRODUCTO</h2>
-            <div id="price-options" style="margin-top:15px;"></div>
-            <button class="btn-main" id="btn-buy-final" disabled onclick="processKeyPurchase()">CONFIRMAR COMPRA</button>
-            <button onclick="closeModal('modal-key-sel')" style="background:none; border:none; color:#555; margin-top:10px; font-size:10px;">CANCELAR</button>
+            <section id="sec-keys" class="home-section"><div class="grid" id="grid-keys"></div></section>
+            <section id="sec-proy" class="home-section"><div class="grid" id="grid-proy"></div></section>
+            <section id="sec-serv" class="home-section"><div class="grid" id="grid-serv"></div></section>
+            <section id="sec-pagos" class="home-section"><div class="grid" id="grid-pagos"></div></section>
+            <section id="sec-chat" class="home-section" style="padding:0;">
+                <div id="chat-messages" style="height:calc(100vh - 160px); overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:10px;"></div>
+                <div style="padding:15px; background:#0a0a0a; display:flex; gap:10px; border-top:1px solid #222;">
+                    <input type="text" id="chat-in" style="flex:1; background:#111; border:1px solid #333; color:#fff; padding:12px; border-radius:10px; outline:none;" placeholder="Escribe...">
+                    <button onclick="sendMsg()" class="btn-main" style="width:auto; margin:0;">ENVIAR</button>
+                </div>
+            </section>
         </div>
     </div>
 
-    <div class="modal" id="modal-key-success">
-        <div class="modal-content" style="border-color:var(--neon);">
-            <h2 style="font-family:Orbitron; font-size:13px; color:var(--neon);">¡EXITO!</h2>
-            <div class="data-box"><span>TU KEY:</span><br><b id="res-key">---</b></div>
-            <button class="btn-main" onclick="copyKey()" style="background:var(--neon); color:#000;">COPIAR</button>
-            <button onclick="closeModal('modal-key-success')" style="background:none; border:none; color:#555; margin-top:10px; font-size:10px;">CERRAR</button>
-        </div>
+    <div class="modal" id="modal-buy">
+        <div class="modal-content" id="modal-buy-content"></div>
     </div>
 
-    <div class="modal" id="modal-pay-data">
-        <div class="modal-content">
-            <h2 id="pay-method-name" style="font-family:Orbitron; font-size:13px; color:var(--primary);">PAGO</h2>
-            <div class="data-box"><b id="pay-method-details">---</b></div>
-            <button class="btn-main" onclick="closeModal('modal-pay-data')">CERRAR</button>
+    <div class="modal" id="modal-pay">
+        <div class="modal-content" id="pay-modal-content">
+            <h2 id="pay-title" style="font-family:Orbitron; font-size:14px; color:var(--primary); margin-bottom:15px;">PAGO</h2>
+            <div id="pay-details-box" class="data-box" style="background:#111; padding:15px; border-radius:10px; border:1px dashed var(--primary); margin-bottom:15px; font-size:12px;"></div>
+            
+            <div class="input-box">
+                <textarea id="pay-msg" placeholder="Escribe un mensaje o tu ID de transacción..."></textarea>
+            </div>
+            
+            <label class="file-input-label">
+                <span id="file-status">Subir Comprobante (Click aquí)</span>
+                <input type="file" id="pay-file" accept="image/*" style="display:none;" onchange="previewFile()">
+            </label>
+            <img id="preview-img">
+
+            <button class="btn-main" id="btn-send-report" onclick="sendPaymentReport()">ENVIAR REPORTE</button>
+            <button class="btn-main" style="background:#222" onclick="closeModal('modal-pay')">CERRAR</button>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, setDoc, updateDoc, collection, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getDatabase, ref, onValue, get, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -160,7 +167,6 @@
             authDomain: "sakuritamodz-web.firebaseapp.com",
             projectId: "sakuritamodz-web",
             databaseURL: "https://sakuritamodz-web-default-rtdb.firebaseio.com",
-            storageBucket: "sakuritamodz-web.firebasestorage.app",
             appId: "1:1025154676126:web:caa752670a1be2759d528f"
         };
 
@@ -169,156 +175,215 @@
         const dbFS = getFirestore(app);
         const dbRT = getDatabase(app);
 
-        let userData = null;
-        let selectedProduct = null;
-        let currentSelPrice = 0;
-        let currentSelTime = "";
+        let uBal = 0;
+        let userData = {};
+        let selProd = null;
+        let base64Image = null;
 
-        // ALERTA PERSONALIZADA
-        window.toast = (msg, type = 'success') => {
-            const container = document.getElementById('toast-container');
-            const t = document.createElement('div');
-            t.className = `toast ${type === 'error' ? 'error' : ''}`;
-            t.innerText = msg;
-            container.appendChild(t);
+        window.sakuraToast = (msg, type = "success") => {
+            const c = document.getElementById('toast-container');
+            const t = document.createElement('div'); t.className = 'toast';
+            if(type === 'error') t.style.borderLeftColor = 'var(--red)';
+            t.innerText = msg; c.appendChild(t);
             setTimeout(() => t.remove(), 3000);
         };
 
-        window.nav = (id) => {
-            document.querySelectorAll('.view').forEach(v => { v.style.display='none'; v.classList.remove('active', 'home-active'); });
-            const target = document.getElementById(id);
-            if(id === 'v-home') { target.style.display='block'; target.classList.add('home-active'); }
-            else { target.style.display='flex'; target.classList.add('active'); }
-        };
-
-        window.toggleMenu = () => {
-            const side = document.getElementById('side'), over = document.getElementById('ov');
-            const isOpen = side.classList.toggle('active');
-            over.style.display = isOpen ? 'block' : 'none';
-        };
-
-        window.showSection = (id) => {
-            document.querySelectorAll('.home-section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            toggleMenu();
-        };
-
-        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
-
-        // COMPRA DE KEYS
-        window.openKeyModal = (id) => {
-            onValue(ref(dbRT, `shop/keys/${id}`), (snap) => {
-                const data = snap.val();
-                if(!data) return;
-                selectedProduct = { ...data, id: id };
-                document.getElementById('sel-key-name').innerText = data.name;
-                const opts = document.getElementById('price-options');
-                opts.innerHTML = '';
-                const labels = { p1: '1 DÍA', p3: '3 DÍAS', p7: '7 DÍAS', p15: '15 DÍAS', p30: '30 DÍAS', pinf: 'PERPETUA' };
-                Object.keys(data.prices || {}).forEach(k => {
-                    if(data.prices[k] > 0) {
-                        opts.innerHTML += `<div class="price-item" onclick="selectPrice(this, '${k}', ${data.prices[k]})">
-                            <span>${labels[k] || k}</span><b>$${data.prices[k]}</b>
-                        </div>`;
-                    }
-                });
-                document.getElementById('modal-key-sel').style.display = 'flex';
-            }, {onlyOnce: true});
-        };
-
-        window.selectPrice = (el, time, price) => {
-            document.querySelectorAll('.price-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-            currentSelPrice = price;
-            currentSelTime = time;
-            document.getElementById('btn-buy-final').disabled = false;
-        };
-
-        window.processKeyPurchase = async () => {
-            if(userData.balance < currentSelPrice) return toast("SALDO INSUFICIENTE", "error");
-            // Ruta igual al Admin: stock_keys/PRODUCTO/TIEMPO
-            const stockPath = `stock_keys/${selectedProduct.id}/${currentSelTime}`;
-            const snap = await get(ref(dbRT, stockPath));
-            if(!snap.exists()) return toast("SIN STOCK DISPONIBLE", "error");
-
-            const keys = snap.val();
-            const firstId = Object.keys(keys)[0];
-            const theKey = keys[firstId];
-
-            try {
-                await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: userData.balance - currentSelPrice });
-                await remove(ref(dbRT, `${stockPath}/${firstId}`));
-                closeModal('modal-key-sel');
-                document.getElementById('res-key').innerText = theKey;
-                document.getElementById('modal-key-success').style.display = 'flex';
-                toast("COMPRA EXITOSA");
-            } catch(e) { toast("ERROR AL COMPRAR", "error"); }
-        };
-
-        // PAGOS
-        window.openPaymentModal = (id) => {
-            onValue(ref(dbRT, `config/pagos/${id}`), (snap) => {
-                const d = snap.val();
-                document.getElementById('pay-method-name').innerText = d.name;
-                document.getElementById('pay-method-details').innerText = d.details;
-                document.getElementById('modal-pay-data').style.display = 'flex';
-            }, {onlyOnce: true});
-        };
-
         // AUTH
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                nav('v-home');
-                onSnapshot(doc(dbFS, "users", user.uid), (s) => {
-                    if(s.exists()) {
-                        userData = s.data();
-                        document.getElementById('u-balance').innerText = `$${userData.balance.toFixed(2)}`;
-                    }
-                });
-                onValue(ref(dbRT, 'shop/keys'), (snap) => {
-                    const grid = document.getElementById('grid-shop'); grid.innerHTML = '';
-                    snap.forEach(c => {
-                        grid.innerHTML += `<div class="card-view" onclick="openKeyModal('${c.key}')">
-                            <img src="${c.val().image || 'https://i.ibb.co/mS098S6/sakura-def.png'}" class="card-img">
-                            <h4 class="card-title">${c.val().name}</h4>
-                        </div>`;
-                    });
-                });
-                onValue(ref(dbRT, 'config/pagos'), (snap) => {
-                    const grid = document.getElementById('grid-pagos'); grid.innerHTML = '';
-                    snap.forEach(c => {
-                        grid.innerHTML += `<div class="card-view" onclick="openPaymentModal('${c.key}')">
-                            <img src="https://cdn-icons-png.flaticon.com/512/4341/4341764.png" class="card-img">
-                            <h4 class="card-title">${c.val().name}</h4>
-                        </div>`;
-                    });
-                });
-            } else { nav('v-login'); }
-            setTimeout(() => document.getElementById('loading-screen').style.display='none', 800);
-        });
+        window.toggleAuth = () => {
+            const l = document.getElementById('box-login'), r = document.getElementById('box-reg');
+            l.style.display = l.style.display === 'none' ? 'block' : 'none';
+            r.style.display = r.style.display === 'none' ? 'block' : 'none';
+        };
 
         window.handleLogin = async () => {
             const e = document.getElementById('l-email').value, p = document.getElementById('l-pass').value;
-            try { await signInWithEmailAndPassword(auth, e, p); toast("BIENVENIDO"); } 
-            catch(err) { toast("DATOS INCORRECTOS", "error"); }
+            try { await signInWithEmailAndPassword(auth, e, p); } catch(err) { sakuraToast("DATOS INCORRECTOS", "error"); }
         };
 
         window.handleRegister = async () => {
-            const e = document.getElementById('r-email').value, p = document.getElementById('r-pass').value;
+            const n = document.getElementById('r-name').value, e = document.getElementById('r-email').value, p = document.getElementById('r-pass').value;
+            if(p.length < 6) return sakuraToast("PASS CORTA", "error");
             try {
                 const res = await createUserWithEmailAndPassword(auth, e, p);
-                await setDoc(doc(dbFS, "users", res.user.uid), { email: e, balance: 0.00, status: "active", rango: "Normal" });
-                toast("CUENTA CREADA");
-            } catch(err) { toast("ERROR AL REGISTRAR", "error"); }
+                await setDoc(doc(dbFS, "users", res.user.uid), { username: n, balance: 0, uid: res.user.uid });
+            } catch(err) { sakuraToast("ERROR AL CREAR", "error"); }
         };
 
         window.handleLogout = () => signOut(auth);
-        window.copyKey = () => { navigator.clipboard.writeText(document.getElementById('res-key').innerText); toast("COPIADO"); };
-    </script>
 
+        // SESSION
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('v-auth').style.display = 'none';
+                document.getElementById('v-panel').style.display = 'flex';
+                onSnapshot(doc(dbFS, "users", user.uid), (s) => {
+                    if(s.exists()){ 
+                        userData = s.data();
+                        uBal = userData.balance; 
+                        document.getElementById('u-balance').innerText = `$${uBal.toFixed(2)}`; 
+                    }
+                });
+                loadData();
+                loadChat(user.uid);
+            } else {
+                document.getElementById('v-auth').style.display = 'flex';
+                document.getElementById('v-panel').style.display = 'none';
+            }
+        });
+
+        function loadData() {
+            // Keys
+            onValue(ref(dbRT, 'shop/keys'), (snap) => {
+                const g1 = document.getElementById('grid-keys'), g2 = document.getElementById('dash-keys');
+                g1.innerHTML = ''; g2.innerHTML = '';
+                snap.forEach(c => {
+                    const d = c.val();
+                    const html = `<div class="card-view" onclick="openKeyModal('${c.key}', ${JSON.stringify(d).replace(/"/g, '&quot;')})"><img src="${d.image}" class="card-img"><h4 class="card-title">${d.name}</h4></div>`;
+                    g1.innerHTML += html; g2.innerHTML += html;
+                });
+            });
+
+            // Otros
+            const map = { 'proyectos':['grid-proy','dash-proy'], 'servicios':['grid-serv','dash-serv'] };
+            Object.entries(map).forEach(([path, ids]) => {
+                onValue(ref(dbRT, `shop/${path}`), (snap) => {
+                    ids.forEach(id => document.getElementById(id).innerHTML = '');
+                    snap.forEach(c => {
+                        const d = c.val();
+                        const html = `<div class="card-view" onclick="openSimpleModal('${path}', '${c.key}', ${d.price}, '${d.name}', '${d.image}')"><div class="price-tag">$${d.price}</div><img src="${d.image}" class="card-img"><h4 class="card-title">${d.name}</h4></div>`;
+                        ids.forEach(id => document.getElementById(id).innerHTML += html);
+                    });
+                });
+            });
+
+            // Pagos / Recargas
+            onValue(ref(dbRT, 'config/pagos'), (snap) => {
+                const g = document.getElementById('grid-pagos'); g.innerHTML = '';
+                snap.forEach(c => {
+                    const d = c.val();
+                    g.innerHTML += `<div class="card-view" style="padding:20px" onclick="openPay('${d.name}','${d.details}')"><h4 class="card-title" style="color:var(--neon)">${d.name}</h4></div>`;
+                });
+            });
+        }
+
+        // COMPRAS
+        window.openKeyModal = (id, data) => {
+            selProd = { ...data, id };
+            const labels = { d1:'1 DÍA', d3:'3 DÍAS', d7:'7 DÍAS', d30:'30 DÍAS', inf:'PERPETUA' };
+            let opt = '';
+            Object.keys(data.prices).forEach(k => {
+                opt += `<div class="price-item" onclick="confirmKeyBuy('${k}', ${data.prices[k]})"><span>${labels[k]}</span><b style="color:var(--neon)">$${data.prices[k]}</b></div>`;
+            });
+            document.getElementById('modal-buy-content').innerHTML = `<h2 style="font-family:Orbitron; font-size:14px; color:var(--primary); margin-bottom:15px;">COMPRAR KEY</h2>${opt}<button class="btn-main" style="background:#222" onclick="closeModal('modal-buy')">CANCELAR</button>`;
+            document.getElementById('modal-buy').style.display = 'flex';
+        };
+
+        window.openSimpleModal = (path, id, price, name, img) => {
+            selProd = { path, id, price, name };
+            document.getElementById('modal-buy-content').innerHTML = `
+                <img src="${img}" style="width:80px; margin-bottom:15px;">
+                <h2 style="font-family:Orbitron; font-size:14px; color:var(--primary);">${name}</h2>
+                <p style="font-size:12px; margin:10px 0;">Precio: <b style="color:var(--neon)">$${price}</b></p>
+                <button class="btn-main" onclick="confirmSimpleBuy()">COMPRAR AHORA</button>
+                <button class="btn-main" style="background:#222" onclick="closeModal('modal-buy')">CANCELAR</button>`;
+            document.getElementById('modal-buy').style.display = 'flex';
+        };
+
+        window.confirmKeyBuy = async (time, price) => {
+            if(uBal < price) return sakuraToast("SALDO INSUFICIENTE", "error");
+            const snap = await get(ref(dbRT, `stock_keys/${selProd.id}/${time}`));
+            if(!snap.exists()) return sakuraToast("SIN STOCK", "error");
+            const keyId = Object.keys(snap.val())[0], finalKey = snap.val()[keyId];
+            await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: uBal - price });
+            await remove(ref(dbRT, `stock_keys/${selProd.id}/${time}/${keyId}`));
+            closeModal('modal-buy');
+            alert("✅ KEY: " + finalKey);
+        };
+
+        window.confirmSimpleBuy = async () => {
+            if(uBal < selProd.price) return sakuraToast("SALDO INSUFICIENTE", "error");
+            await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: uBal - selProd.price });
+            closeModal('modal-buy');
+            sakuraToast("COMPRA REALIZADA");
+        };
+
+        // RECARGAS LOGIC
+        window.openPay = (n, d) => {
+            document.getElementById('pay-title').innerText = n;
+            document.getElementById('pay-details-box').innerText = d;
+            document.getElementById('pay-msg').value = '';
+            document.getElementById('pay-file').value = '';
+            document.getElementById('file-status').innerText = 'Subir Comprobante (Click aquí)';
+            document.getElementById('preview-img').style.display = 'none';
+            base64Image = null;
+            document.getElementById('modal-pay').style.display = 'flex';
+        };
+
+        window.previewFile = () => {
+            const file = document.getElementById('pay-file').files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                base64Image = reader.result;
+                document.getElementById('preview-img').src = base64Image;
+                document.getElementById('preview-img').style.display = 'block';
+                document.getElementById('file-status').innerText = '✅ Imagen cargada';
+            };
+            if(file) reader.readAsDataURL(file);
+        };
+
+        window.sendPaymentReport = async () => {
+            const msg = document.getElementById('pay-msg').value;
+            const btn = document.getElementById('btn-send-report');
+            
+            if(!base64Image) return sakuraToast("SUBE EL COMPROBANTE", "error");
+            
+            btn.innerText = "ENVIANDO...";
+            btn.disabled = true;
+
+            try {
+                await addDoc(collection(dbFS, "recargas"), {
+                    uid: auth.currentUser.uid,
+                    username: userData.username || 'Usuario',
+                    metodo: document.getElementById('pay-title').innerText,
+                    mensaje: msg,
+                    comprobante: base64Image,
+                    status: "pendiente",
+                    date: Date.now()
+                });
+                sakuraToast("REPORTE ENVIADO");
+                closeModal('modal-pay');
+            } catch(e) {
+                sakuraToast("ERROR AL ENVIAR", "error");
+            } finally {
+                btn.innerText = "ENVIAR REPORTE";
+                btn.disabled = false;
+            }
+        };
+
+        // UI
+        window.toggleMenu = () => { const s = document.getElementById('side'), o = document.getElementById('ov'); s.classList.toggle('active'); o.style.display = s.classList.contains('active') ? 'block' : 'none'; };
+        window.showSection = (id) => { document.querySelectorAll('.home-section').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); toggleMenu(); };
+        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+
+        function loadChat(uid) {
+            onSnapshot(query(collection(dbFS, `chats/${uid}/msgs`), orderBy('date', 'asc')), (snap) => {
+                const box = document.getElementById('chat-messages'); box.innerHTML = '';
+                snap.forEach(m => {
+                    const side = m.data().sender === uid ? 'margin-left:auto; background:var(--primary);' : 'margin-right:auto; background:#222;';
+                    box.innerHTML += `<div style="${side} max-width:85%; padding:10px 15px; border-radius:12px; font-size:12px;">${m.data().text}</div>`;
+                });
+                box.scrollTop = box.scrollHeight;
+            });
+        }
+        window.sendMsg = async () => {
+            const inp = document.getElementById('chat-in'); if(!inp.value.trim()) return;
+            await addDoc(collection(dbFS, `chats/${auth.currentUser.uid}/msgs`), { sender: auth.currentUser.uid, text: inp.value, date: Date.now() });
+            inp.value = '';
+        };
+    </script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS("particles-js", { "particles": { "number": { "value": 120 }, "color": { "value": "#bc13fe" }, "opacity": { "value": 0.5 }, "size": { "value": 1 }, "line_linked": { "enable": true, "distance": 100, "color": "#bc13fe", "opacity": 0.2 }, "move": { "enable": true, "speed": 1 } } });
+        particlesJS("particles-js", { "particles": { "number": { "value": 40 }, "color": { "value": "#bc13fe" }, "shape": { "type": "circle" }, "opacity": { "value": 0.3 }, "size": { "value": 2 }, "line_linked": { "enable": true, "distance": 120, "color": "#bc13fe", "opacity": 0.2 }, "move": { "enable": true, "speed": 1 } } });
     </script>
 </body>
 </html>

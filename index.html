@@ -89,6 +89,10 @@
         .price-item { background:#111; padding:12px; border-radius:12px; margin-bottom:10px; border: 1px solid #222; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-size: 12px; }
         .btn-main { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; font-size: 11px; margin-top: 10px; }
 
+        /* NUEVO DISEÑO UPLOAD AREA */
+        .upload-area { border: 2px dashed #333; border-radius: 15px; padding: 20px; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.02); margin-bottom: 15px; }
+        .upload-area:hover { border-color: var(--primary); background: rgba(188, 19, 254, 0.05); }
+
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -224,13 +228,19 @@
             <div id="pay-details-box" style="background:#111; padding:15px; border-radius:10px; border:1px dashed var(--primary); margin-bottom:15px; font-size:11px;"></div>
             <div class="input-box"><input type="number" id="pay-amount" placeholder="Monto a recargar ($)"></div>
             <div class="input-box"><textarea id="pay-msg" placeholder="Mensaje o ID de pago..."></textarea></div>
-            <label class="file-input-label">
-                <span id="file-status">Subir Comprobante</span>
+            
+            <div class="upload-area" onclick="document.getElementById('pay-file').click()">
+                <div id="upload-placeholder">
+                    <div style="font-size: 30px; margin-bottom: 5px;">📸</div>
+                    <span id="file-status" style="font-size: 10px; font-family: 'Orbitron'; color: var(--primary); font-weight: bold;">ADJUNTAR COMPROBANTE</span>
+                    <p style="font-size: 9px; color: #555; margin-top: 5px;">Toca para seleccionar imagen</p>
+                </div>
+                <img id="preview-img-pay" style="width:100%; max-height:150px; display:none; border-radius:10px; object-fit: contain; border: 1px solid var(--primary);">
                 <input type="file" id="pay-file" accept="image/*" style="display:none;" onchange="previewPayFile()">
-            </label>
-            <img id="preview-img-pay" style="width:100%; max-height:100px; display:none; border-radius:10px; margin-top:5px;">
+            </div>
+
             <button class="btn-main" id="btn-send-report" onclick="sendPaymentReport()">ENVIAR REPORTE</button>
-            <button class="btn-main" style="background:#222" onclick="closeModal('modal-pay')">CERRAR</button>
+            <button class="btn-main" style="background:#222; margin-top: 5px;" onclick="closeModal('modal-pay')">CERRAR</button>
         </div>
     </div>
 
@@ -435,6 +445,7 @@
             document.getElementById('pay-title').innerText = n;
             document.getElementById('pay-details-box').innerText = d;
             document.getElementById('preview-img-pay').style.display = 'none';
+            document.getElementById('upload-placeholder').style.display = 'block'; // Mostrar placeholder
             base64PayImg = null;
             document.getElementById('modal-pay').style.display = 'flex';
         };
@@ -446,6 +457,7 @@
                 base64PayImg = reader.result;
                 document.getElementById('preview-img-pay').src = base64PayImg;
                 document.getElementById('preview-img-pay').style.display = 'block';
+                document.getElementById('upload-placeholder').style.display = 'none'; // Ocultar texto al cargar imagen
                 document.getElementById('file-status').innerText = '✅ LISTO';
             };
             if(file) reader.readAsDataURL(file);
@@ -496,3 +508,4 @@
     </script>
 </body>
 </html>
+

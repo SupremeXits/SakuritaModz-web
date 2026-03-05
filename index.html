@@ -12,63 +12,97 @@
         :root { --primary: #bc13fe; --neon: #00ff7f; --bg: #000; --card: rgba(15, 15, 15, 0.98); --red: #ff3131; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         body, html { background: #000; color: #fff; overflow-x: hidden; height: 100vh; width: 100vw; }
+        
+        /* PARTÍCULAS - CAPA TRASERA UNIVERSAL */
         #particles-js { position: fixed; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+        /* TOASTS */
         #toast-container { position: fixed; top: 20px; right: 20px; z-index: 99999; pointer-events: none; }
         .toast { background: rgba(10,10,10,0.95); border-left: 4px solid var(--primary); color: #fff; padding: 15px 25px; border-radius: 8px; font-family: 'Orbitron'; font-size: 11px; margin-bottom: 10px; border: 1px solid #222; animation: slideIn 0.3s ease forwards; pointer-events: auto; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* AUTH & PHOTO PICKER */
         .auth-view { position: fixed; inset: 0; z-index: 5000; display: flex; align-items: center; justify-content: center; background: transparent; overflow-y: auto; padding: 20px; }
         .auth-container { width: 90%; max-width: 350px; background: rgba(10, 10, 10, 0.9); border: 1px solid rgba(188, 19, 254, 0.4); border-top: 4px solid var(--primary); border-radius: 20px; padding: 35px 25px; text-align: center; z-index: 10; backdrop-filter: blur(10px); }
         .input-box { width: 100%; margin-bottom: 15px; }
         .input-box input, .input-box textarea { width: 100%; background: #0a0a0a; border: 1px solid #222; padding: 12px 15px; border-radius: 10px; color: #fff; outline: none; font-size: 13px; }
+        
         .photo-picker { width: 80px; height: 80px; border-radius: 50%; border: 2px dashed var(--primary); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; background: #0a0a0a; }
         .photo-picker img { width: 100%; height: 100%; object-fit: cover; display: none; }
         .photo-picker span { font-size: 24px; color: var(--primary); }
+
+        /* PANEL */
         .main-view { display: none; height: 100vh; width: 100vw; flex-direction: column; position: relative; z-index: 1; }
         header { width: 100%; height: 70px; background: rgba(5,5,5,0.9); backdrop-filter: blur(10px); display: flex; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); z-index: 1000; }
         .menu-icon { font-size: 28px; color: var(--primary); cursor: pointer; }
+        
+        /* DRAWABLE */
         .drawer { position: fixed; top: 0; left: -310px; width: 300px; height: 100vh; background: #080808; border-right: 3px solid var(--primary); z-index: 9999; transition: 0.4s; display: flex; flex-direction: column; }
         .drawer.active { left: 0 !important; }
+        
         .drawer-header { padding: 25px 20px; background: #0f0f0f; border-bottom: 1px solid #222; display: flex; align-items: center; gap: 15px; }
         .u-img-mini { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #000; }
         .u-info-mini h3 { font-size: 13px; font-family: 'Orbitron'; color: #fff; }
         .u-info-mini span { font-size: 12px; color: var(--neon); font-weight: bold; }
+
         .drawer-section-title { padding: 15px 20px 5px; font-size: 10px; color: #555; font-family: 'Orbitron'; text-transform: uppercase; letter-spacing: 1px; }
         .nav-opt { padding: 12px 25px; display: flex; align-items: center; gap: 15px; cursor: pointer; color: #ddd; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.02); }
         .nav-opt i { font-style: normal; font-size: 18px; color: var(--primary); width: 25px; text-align: center; }
+
         .content-area { flex: 1; overflow-y: auto; padding-bottom: 80px; }
         .home-section { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .home-section.active { display: block; }
+        
+        /* PERFIL / RECARGAS */
         .profile-card { background: var(--card); border-radius: 20px; padding: 25px; margin-bottom: 20px; border: 1px solid #222; text-align: center; border-bottom: 4px solid var(--primary); }
         .profile-img-big { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 15px; object-fit: cover; background: #000; }
+        
+        /* ESTILOS PROFESIONALES INFO PERFIL */
         .profile-info-grid { text-align: left; margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
         .info-item { background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; }
         .info-item i { color: var(--primary); font-size: 18px; width: 25px; text-align: center; font-style: normal; }
         .info-content { display: flex; flex-direction: column; }
         .info-label { font-size: 9px; font-family: 'Orbitron'; color: #555; text-transform: uppercase; letter-spacing: 1px; }
         .info-value { font-size: 13px; color: #fff; font-weight: 600; }
+
         .hist-card { background: #0a0a0a; border-radius: 12px; padding: 12px 15px; margin-bottom: 10px; border: 1px solid #222; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .hist-data { display: flex; flex-direction: column; }
         .hist-date { font-size: 10px; color: #666; font-family: 'Orbitron'; }
         .hist-amt { color: var(--neon); font-family: 'Orbitron'; font-size: 12px; font-weight: bold; }
         .btn-ver-hist { background: var(--primary); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; }
+
+        /* MODAL IMAGEN COMPROBANTE */
         .img-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 30000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .img-viewer img { max-width: 100%; max-height: 80vh; border-radius: 10px; border: 2px solid var(--primary); }
         .close-img { position: absolute; top: 30px; right: 30px; font-size: 35px; color: #fff; cursor: pointer; font-weight: bold; }
+
+        /* GRID & CARDS */
         .section-title { font-family: 'Orbitron'; font-size: 12px; color: var(--primary); margin: 20px 0 10px 0; display: flex; align-items: center; gap: 10px; }
         .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(188, 19, 254, 0.2); }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
         .card-view { background: var(--card); border-radius: 15px; border: 1px solid #222; border-bottom: 3px solid var(--primary); text-align: center; overflow: hidden; cursor: pointer; position: relative; }
         .card-img { width: 100%; height: 100px; object-fit: contain; background: #111; padding: 10px; }
         .card-title { font-family: 'Orbitron'; font-size: 10px; padding: 10px 5px; color: #fff; }
+        
+        /* MODALES */
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
         .modal-content { background: #0a0a0a; border: 2px solid var(--primary); border-radius: 20px; width: 100%; max-width: 320px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
         .price-item { background:#111; padding:12px; border-radius:12px; margin-bottom:10px; border: 1px solid #222; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-size: 12px; }
         .btn-main { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; font-size: 11px; margin-top: 10px; }
+
+        /* MODAL KEY FINAL */
         .key-display-box { background: #050505; border: 1px dashed var(--primary); padding: 15px; border-radius: 10px; margin: 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .key-text { font-family: 'Orbitron'; color: var(--neon); font-size: 13px; word-break: break-all; text-align: left; }
         .copy-btn { background: var(--primary); color: #fff; border: none; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+
+        /* UPLOAD AREA */
         .upload-area { border: 2px dashed #333; border-radius: 15px; padding: 20px; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.02); margin-bottom: 15px; }
         .upload-area:hover { border-color: var(--primary); background: rgba(188, 19, 254, 0.05); }
+
+        /* ESTILO PARA DESCUENTO VIP */
+        .old-price { text-decoration: line-through; color: #555; font-size: 10px; margin-right: 5px; }
+        .vip-badge { background: var(--primary); color: #fff; font-size: 8px; padding: 2px 5px; border-radius: 4px; margin-left: 5px; font-family: 'Orbitron'; }
+
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -113,17 +147,21 @@
                 <img src="" id="dr-img" class="u-img-mini" onerror="this.src='https://via.placeholder.com/150'">
                 <div class="u-info-mini">
                     <h3 id="dr-name">---</h3>
+                    <div id="vip-status-label" style="font-size: 9px; margin-bottom: 2px;"></div>
                     <span id="dr-bal">$0.00</span>
                 </div>
             </div>
+            
             <div class="drawer-section-title">Tiendas</div>
             <div class="nav-opt" onclick="showSection('sec-dash')"><i>🏠</i> <span>Dashboard</span></div>
             <div class="nav-opt" onclick="showSection('sec-keys')"><i>🔑</i> <span>Tienda de Keys</span></div>
             <div class="nav-opt" onclick="showSection('sec-proy')"><i>📂</i> <span>Tienda de Proyectos</span></div>
             <div class="nav-opt" onclick="showSection('sec-serv')"><i>💎</i> <span>Servicios</span></div>
+            
             <div class="drawer-section-title">Mi Cuenta</div>
             <div class="nav-opt" onclick="showSection('sec-perfil')"><i>👤</i> <span>Mi Perfil / Historial</span></div>
             <div class="nav-opt" onclick="showSection('sec-pagos')"><i>💳</i> <span>Recargas</span></div>
+            
             <div class="drawer-section-title">Soporte</div>
             <div class="nav-opt" onclick="showSection('sec-chat')"><i>💬</i> <span>Soporte</span></div>
             <div class="nav-opt" onclick="alert('Sakurita Modz V33')"><i>⚙️</i> <span>Configuraciones</span></div>
@@ -140,19 +178,47 @@
                 <div class="section-title">SERVICIOS DISPONIBLES</div>
                 <div class="grid" id="dash-serv"></div>
             </section>
+
             <section id="sec-perfil" class="home-section">
                 <div class="profile-card">
                     <img src="" id="p-img-big" class="profile-img-big" onerror="this.src='https://via.placeholder.com/150'">
                     <h2 id="p-user" style="font-family:Orbitron; color:var(--primary); font-size:18px;">USUARIO</h2>
+                    
                     <div class="profile-info-grid">
-                        <div class="info-item"><i>👤</i><div class="info-content"><span class="info-label">Nombre de Usuario</span><span class="info-value" id="p-username-val">---</span></div></div>
-                        <div class="info-item"><i>📧</i><div class="info-content"><span class="info-label">Correo Electrónico</span><span class="info-value" id="p-mail-val">---</span></div></div>
-                        <div class="info-item"><i>🔒</i><div class="info-content"><span class="info-label">Contraseña Acceso</span><span class="info-value" id="p-pass-val">---</span></div></div>
+                        <div class="info-item">
+                            <i>👤</i>
+                            <div class="info-content">
+                                <span class="info-label">Nombre de Usuario</span>
+                                <span class="info-value" id="p-username-val">---</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i>👑</i>
+                            <div class="info-content">
+                                <span class="info-label">Estado de Cuenta</span>
+                                <span class="info-value" id="p-status-val">USUARIO ESTÁNDAR</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i>📧</i>
+                            <div class="info-content">
+                                <span class="info-label">Correo Electrónico</span>
+                                <span class="info-value" id="p-mail-val">---</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i>🔒</i>
+                            <div class="info-content">
+                                <span class="info-label">Contraseña Acceso</span>
+                                <span class="info-value" id="p-pass-val">---</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="section-title">HISTORIAL DE RECARGAS</div>
                 <div id="hist-pagos-list"></div>
             </section>
+
             <section id="sec-keys" class="home-section"><div class="grid" id="grid-keys"></div></section>
             <section id="sec-proy" class="home-section"><div class="grid" id="grid-proy"></div></section>
             <section id="sec-serv" class="home-section"><div class="grid" id="grid-serv"></div></section>
@@ -171,8 +237,20 @@
         <span class="close-img" onclick="document.getElementById('v-img-full').style.display='none'">×</span>
         <img src="" id="img-target">
     </div>
+
     <div class="modal" id="modal-buy"><div class="modal-content" id="modal-buy-content"></div></div>
-    <div class="modal" id="modal-key-result"><div class="modal-content"><h2 style="font-family:Orbitron; font-size:14px; color:var(--primary);">COMPRA EXITOSA</h2><p style="font-size:11px; color:#aaa; margin-top:10px;">Copia tu licencia a continuación:</p><div class="key-display-box"><span class="key-text" id="final-key-text">CARGANDO...</span><button class="copy-btn" onclick="copyKey()">📋</button></div><button class="btn-main" onclick="closeModal('modal-key-result')">ENTENDIDO</button></div></div>
+
+    <div class="modal" id="modal-key-result">
+        <div class="modal-content">
+            <h2 style="font-family:Orbitron; font-size:14px; color:var(--primary);">COMPRA EXITOSA</h2>
+            <p style="font-size:11px; color:#aaa; margin-top:10px;">Copia tu licencia a continuación:</p>
+            <div class="key-display-box">
+                <span class="key-text" id="final-key-text">CARGANDO...</span>
+                <button class="copy-btn" onclick="copyKey()">📋</button>
+            </div>
+            <button class="btn-main" onclick="closeModal('modal-key-result')">ENTENDIDO</button>
+        </div>
+    </div>
 
     <div class="modal" id="modal-pay">
         <div class="modal-content">
@@ -180,6 +258,7 @@
             <div id="pay-details-box" style="background:#111; padding:15px; border-radius:10px; border:1px dashed var(--primary); margin-bottom:15px; font-size:11px;"></div>
             <div class="input-box"><input type="number" id="pay-amount" placeholder="Monto a recargar ($)"></div>
             <div class="input-box"><textarea id="pay-msg" placeholder="Mensaje o ID de pago..."></textarea></div>
+            
             <div class="upload-area" onclick="document.getElementById('pay-file').click()">
                 <div id="upload-placeholder">
                     <div style="font-size: 30px; margin-bottom: 5px;">📸</div>
@@ -189,6 +268,7 @@
                 <img id="preview-img-pay" style="width:100%; max-height:150px; display:none; border-radius:10px; object-fit: contain; border: 1px solid var(--primary);">
                 <input type="file" id="pay-file" accept="image/*" style="display:none;" onchange="previewPayFile()">
             </div>
+
             <button class="btn-main" id="btn-send-report" onclick="sendPaymentReport()">ENVIAR REPORTE</button>
             <button class="btn-main" style="background:#222; margin-top: 5px;" onclick="closeModal('modal-pay')">CERRAR</button>
         </div>
@@ -251,7 +331,7 @@
             if(p.length < 6) return sakuraToast("PASS CORTA", "error");
             try {
                 const res = await createUserWithEmailAndPassword(auth, e, p);
-                await setDoc(doc(dbFS, "users", res.user.uid), { username: n, balance: 0, email: e, password: p, photo: registerPhotoBase64, uid: res.user.uid, status: "active" });
+                await setDoc(doc(dbFS, "users", res.user.uid), { username: n, balance: 0, email: e, password: p, photo: registerPhotoBase64, uid: res.user.uid, status: "active", isVip: false });
             } catch(err) { sakuraToast("ERROR AL CREAR", "error"); }
         };
 
@@ -262,10 +342,35 @@
                 onSnapshot(doc(dbFS, "users", user.uid), (s) => {
                     if(s.exists()){ 
                         userData = s.data();
+                        
+                        // VERIFICAR BANEO
                         if(userData.status === "disabled" || userData.status === "banned"){
                             alert("TU CUENTA ESTÁ BANEADA/DESHABILITADA");
                             handleLogout(); return;
                         }
+
+                        // SISTEMA VIP - DETECCION Y ESTILO
+                        const isVip = userData.isVip === true || userData.status === "vip";
+                        const label = document.getElementById('vip-status-label');
+                        const pImg = document.getElementById('p-img-big');
+                        const dImg = document.getElementById('dr-img');
+
+                        if(isVip){
+                            label.innerHTML = '<span style="color:var(--primary); font-weight:bold; font-family:Orbitron;">👑 VIP SUPREME</span>';
+                            pImg.style.borderColor = 'var(--primary)';
+                            pImg.style.boxShadow = '0 0 15px var(--primary)';
+                            dImg.style.borderColor = 'var(--primary)';
+                            document.getElementById('p-status-val').innerText = "MIEMBRO VIP SUPREME";
+                            document.getElementById('p-status-val').style.color = "var(--primary)";
+                        } else {
+                            label.innerHTML = '<span style="color:#555; font-family:Orbitron;">USUARIO ESTÁNDAR</span>';
+                            pImg.style.borderColor = 'var(--primary)'; // Mantener estilo original
+                            pImg.style.boxShadow = 'none';
+                            dImg.style.borderColor = 'var(--primary)';
+                            document.getElementById('p-status-val').innerText = "USUARIO ESTÁNDAR";
+                            document.getElementById('p-status-val').style.color = "#fff";
+                        }
+
                         uBal = userData.balance;
                         document.getElementById('v-auth').style.display = 'none';
                         document.getElementById('v-panel').style.display = 'flex';
@@ -274,10 +379,13 @@
                         document.getElementById('dr-bal').innerText = `$${uBal.toFixed(2)}`;
                         document.getElementById('dr-img').src = userData.photo || '';
                         document.getElementById('p-img-big').src = userData.photo || '';
+                        
+                        // ACTUALIZAR PERFIL PROFESIONAL
                         document.getElementById('p-user').innerText = userData.username;
                         document.getElementById('p-username-val').innerText = userData.username;
                         document.getElementById('p-mail-val').innerText = userData.email;
                         document.getElementById('p-pass-val').innerText = userData.password;
+                        
                         loadHistory(user.uid);
                     }
                 });
@@ -296,7 +404,14 @@
             snap.forEach(doc => {
                 const d = doc.data();
                 const fecha = new Date(d.date).toLocaleDateString();
-                box.innerHTML += `<div class="hist-card"><div class="hist-data"><span class="hist-date">${fecha}</span><span class="hist-amt">+$${d.monto || 0}</span></div><button class="btn-ver-hist" onclick="verComprobante('${d.comprobante}')">VER</button></div>`;
+                box.innerHTML += `
+                    <div class="hist-card">
+                        <div class="hist-data">
+                            <span class="hist-date">${fecha}</span>
+                            <span class="hist-amt">+$${d.monto || 0}</span>
+                        </div>
+                        <button class="btn-ver-hist" onclick="verComprobante('${d.comprobante}')">VER</button>
+                    </div>`;
             });
         }
 
@@ -315,6 +430,7 @@
                     g1.innerHTML += html; g2.innerHTML += html;
                 });
             });
+
             const map = { 'proyectos':['grid-proy','dash-proy'], 'servicios':['grid-serv','dash-serv'] };
             Object.entries(map).forEach(([path, ids]) => {
                 onValue(ref(dbRT, `shop/${path}`), (snap) => {
@@ -326,6 +442,7 @@
                     });
                 });
             });
+
             onValue(ref(dbRT, 'config/pagos'), (snap) => {
                 const g = document.getElementById('grid-pagos'); g.innerHTML = '';
                 snap.forEach(c => {
@@ -337,25 +454,44 @@
 
         window.openKeyModal = (id, data) => {
             selProd = { ...data, id };
+            const isVip = userData.isVip || userData.status === "vip";
             const labels = { d1:'1 DÍA', d3:'3 DÍAS', d7:'7 DÍAS', d15:'15 DÍAS', d30:'30 DÍAS', inf:'PERPETUA' };
             let opt = '';
+            
             if(data.prices){
                 Object.keys(data.prices).forEach(k => {
                     const label = labels[k] || k.toUpperCase();
-                    opt += `<div class="price-item" onclick="confirmKeyBuy('${k}', ${data.prices[k]})"><span>${label}</span><b style="color:var(--neon)">$${data.prices[k]}</b></div>`;
+                    let price = data.prices[k];
+                    let priceHtml = `<b style="color:var(--neon)">$${price}</b>`;
+                    
+                    // APLICAR DESCUENTO SI ES VIP (Ejemplo 10% de descuento)
+                    if(isVip) {
+                        const discounted = (price * 0.9).toFixed(2);
+                        priceHtml = `<span class="old-price">$${price}</span> <b style="color:var(--neon)">$${discounted}</b> <span class="vip-badge">VIP</span>`;
+                    }
+
+                    opt += `<div class="price-item" onclick="confirmKeyBuy('${k}', ${price})"><span>${label}</span>${priceHtml}</div>`;
                 });
             }
             document.getElementById('modal-buy-content').innerHTML = `<h2 style="font-family:Orbitron; font-size:14px; color:var(--primary); margin-bottom:15px;">DURACIÓN</h2>${opt}<button class="btn-main" style="background:#222" onclick="closeModal('modal-buy')">CANCELAR</button>`;
             document.getElementById('modal-buy').style.display = 'flex';
         };
 
-        window.confirmKeyBuy = async (time, price) => {
-            if(uBal < price) return sakuraToast("SALDO INSUFICIENTE", "error");
+        window.confirmKeyBuy = async (time, originalPrice) => {
+            const isVip = userData.isVip || userData.status === "vip";
+            // Calcular precio final real para el cobro
+            const finalPrice = isVip ? parseFloat((originalPrice * 0.9).toFixed(2)) : originalPrice;
+
+            if(uBal < finalPrice) return sakuraToast("SALDO INSUFICIENTE", "error");
+            
             const snap = await get(ref(dbRT, `stock_keys/${selProd.id}/${time}`));
             if(!snap.exists()) return sakuraToast("SIN STOCK", "error");
+            
             const keyId = Object.keys(snap.val())[0], finalKey = snap.val()[keyId];
-            await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: uBal - price });
+            
+            await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: uBal - finalPrice });
             await remove(ref(dbRT, `stock_keys/${selProd.id}/${time}/${keyId}`));
+            
             closeModal('modal-buy');
             document.getElementById('final-key-text').innerText = finalKey;
             document.getElementById('modal-key-result').style.display = 'flex';
@@ -363,83 +499,78 @@
 
         window.copyKey = () => {
             const key = document.getElementById('final-key-text').innerText;
-            navigator.clipboard.writeText(key).then(() => { sakuraToast("KEY COPIADA AL PORTAPAPELES"); });
+            navigator.clipboard.writeText(key).then(() => {
+                sakuraToast("KEY COPIADA AL PORTAPAPELES");
+            });
         };
 
         window.openSimpleModal = (path, id, price, name, img) => {
             selProd = { path, id, price, name };
+            const isVip = userData.isVip || userData.status === "vip";
+            let priceHtml = `<b style="color:var(--neon)">$${price}</b>`;
+            
+            if(isVip) {
+                const discounted = (price * 0.9).toFixed(2);
+                priceHtml = `<span class="old-price">$${price}</span> <b style="color:var(--neon)">$${discounted}</b> <span class="vip-badge">VIP</span>`;
+            }
+
             document.getElementById('modal-buy-content').innerHTML = `
                 <img src="${img}" style="width:80px; margin-bottom:15px; border-radius:10px;">
                 <h2 style="font-family:Orbitron; font-size:14px;">${name}</h2>
-                <p style="font-size:12px; margin:10px 0;">Precio: <b style="color:var(--neon)">$${price}</b></p>
+                <p style="font-size:12px; margin:10px 0;">Precio: ${priceHtml}</p>
                 <button class="btn-main" onclick="confirmSimpleBuy()">COMPRAR</button>
                 <button class="btn-main" style="background:#222" onclick="closeModal('modal-buy')">CERRAR</button>`;
             document.getElementById('modal-buy').style.display = 'flex';
         };
 
         window.confirmSimpleBuy = async () => {
-            if(uBal < selProd.price) return sakuraToast("SALDO INSUFICIENTE", "error");
-            await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: uBal - selProd.price });
+            const isVip = userData.isVip || userData.status === "vip";
+            const finalPrice = isVip ? parseFloat((selProd.price * 0.9).toFixed(2)) : selProd.price;
+
+            if(uBal < finalPrice) return sakuraToast("SALDO INSUFICIENTE", "error");
+            await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: uBal - finalPrice });
             closeModal('modal-buy'); sakuraToast("COMPRA EXITOSA");
         };
 
-        // --- FUNCIONES CORREGIDAS PARA EL COMPROBANTE ---
         window.openPay = (n, d) => {
             document.getElementById('pay-title').innerText = n;
             document.getElementById('pay-details-box').innerText = d;
-            base64PayImg = null;
             document.getElementById('preview-img-pay').style.display = 'none';
-            document.getElementById('preview-img-pay').src = '';
             document.getElementById('upload-placeholder').style.display = 'block';
-            document.getElementById('file-status').innerText = 'ADJUNTAR COMPROBANTE';
-            document.getElementById('pay-amount').value = '';
-            document.getElementById('pay-msg').value = '';
+            base64PayImg = null;
             document.getElementById('modal-pay').style.display = 'flex';
         };
 
         window.previewPayFile = () => {
             const file = document.getElementById('pay-file').files[0];
-            if (!file) return;
-            if (!file.type.startsWith('image/')) return sakuraToast("DEBE SER UNA IMAGEN", "error");
             const reader = new FileReader();
             reader.onloadend = () => {
                 base64PayImg = reader.result;
-                const preview = document.getElementById('preview-img-pay');
-                preview.src = base64PayImg;
-                preview.style.display = 'block';
+                document.getElementById('preview-img-pay').src = base64PayImg;
+                document.getElementById('preview-img-pay').style.display = 'block';
                 document.getElementById('upload-placeholder').style.display = 'none';
                 document.getElementById('file-status').innerText = '✅ LISTO';
             };
-            reader.readAsDataURL(file);
+            if(file) reader.readAsDataURL(file);
         };
 
         window.sendPaymentReport = async () => {
             const msg = document.getElementById('pay-msg').value;
             const amt = document.getElementById('pay-amount').value;
-            if(!base64PayImg) return sakuraToast("ADJUNTA EL COMPROBANTE", "error");
-            if(!amt || amt <= 0) return sakuraToast("INGRESA UN MONTO", "error");
+            if(!base64PayImg || !amt) return sakuraToast("FALTAN DATOS", "error");
             const btn = document.getElementById('btn-send-report');
             btn.innerText = "ENVIANDO..."; btn.disabled = true;
             try {
                 await addDoc(collection(dbFS, "recargas"), {
                     uid: auth.currentUser.uid,
-                    username: userData.username || 'Desconocido',
+                    username: userData.username,
                     metodo: document.getElementById('pay-title').innerText,
-                    mensaje: msg || '', 
-                    monto: parseFloat(amt),
-                    comprobante: base64PayImg, 
-                    status: "pendiente", 
-                    date: Date.now()
+                    mensaje: msg, monto: parseFloat(amt),
+                    comprobante: base64PayImg, status: "pendiente", date: Date.now()
                 });
-                sakuraToast("REPORTE ENVIADO CON ÉXITO"); 
-                closeModal('modal-pay');
-            } catch(e) { 
-                console.error(e);
-                sakuraToast("ERROR AL ENVIAR", "error"); 
-            } finally { 
-                btn.innerText = "ENVIAR REPORTE"; 
-                btn.disabled = false; 
-            }
+                sakuraToast("REPORTE ENVIADO"); closeModal('modal-pay');
+            } catch(e) { sakuraToast("ERROR", "error"); }
+            finally { btn.innerText = "ENVIAR REPORTE"; btn.disabled = false; }
         };
 
         window.toggleMenu = () => { const s = document.getElementById('side'), o = document.getElementById('ov'); s.classList.toggle('active'); o.style.display = s.classList.contains('active') ? 'block' : 'none'; };

@@ -13,7 +13,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         body, html { background: #000; color: #fff; overflow-x: hidden; height: 100vh; width: 100vw; }
         
-        /* PARTÍCULAS - CAPA TRASERA UNIVERSAL */
+        /* PARTÍCULAS */
         #particles-js { position: fixed; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
         /* TOASTS */
@@ -57,7 +57,6 @@
         .profile-card { background: var(--card); border-radius: 20px; padding: 25px; margin-bottom: 20px; border: 1px solid #222; text-align: center; border-bottom: 4px solid var(--primary); }
         .profile-img-big { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 15px; object-fit: cover; background: #000; }
         
-        /* ESTILOS PROFESIONALES INFO PERFIL */
         .profile-info-grid { text-align: left; margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
         .info-item { background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; }
         .info-item i { color: var(--primary); font-size: 18px; width: 25px; text-align: center; font-style: normal; }
@@ -77,12 +76,16 @@
         .close-img { position: absolute; top: 30px; right: 30px; font-size: 35px; color: #fff; cursor: pointer; font-weight: bold; }
 
         /* GRID & CARDS */
-        .section-title { font-family: 'Orbitron'; font-size: 12px; color: var(--primary); margin: 20px 0 10px 0; display: flex; align-items: center; gap: 10px; }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(188, 19, 254, 0.2); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
-        .card-view { background: var(--card); border-radius: 15px; border: 1px solid #222; border-bottom: 3px solid var(--primary); text-align: center; overflow: hidden; cursor: pointer; position: relative; }
-        .card-img { width: 100%; height: 100px; object-fit: contain; background: #111; padding: 10px; }
-        .card-title { font-family: 'Orbitron'; font-size: 10px; padding: 10px 5px; color: #fff; }
+        .section-title { font-family: 'Orbitron'; font-size: 16px; font-weight: 900; color: var(--primary); margin: 30px 0 15px 0; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        .section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(to right, var(--primary), transparent); }
+        
+        .grid { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+        
+        .card-view { background: var(--card); border-radius: 15px; border: 1px solid #222; border-bottom: 4px solid var(--primary); text-align: center; overflow: hidden; cursor: pointer; position: relative; width: 100%; max-width: 320px; }
+        
+        .card-img { width: 100%; height: 160px; object-fit: cover; background: #111; display: block; }
+        
+        .card-title { font-family: 'Orbitron'; font-size: 11px; padding: 12px 5px; color: #fff; font-weight: 700; letter-spacing: 0.5px; }
         
         /* MODALES */
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
@@ -90,18 +93,15 @@
         .price-item { background:#111; padding:12px; border-radius:12px; margin-bottom:10px; border: 1px solid #222; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-size: 12px; }
         .btn-main { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; font-size: 11px; margin-top: 10px; }
 
-        /* MODAL KEY FINAL */
+        /* ESTILO PRECIOS VIP */
+        .price-old { text-decoration: line-through; color: #666; font-size: 10px; margin-right: 5px; }
+        .vip-tag { background: var(--primary); color: #fff; font-size: 8px; padding: 2px 4px; border-radius: 4px; margin-right: 5px; vertical-align: middle; }
+
         .key-display-box { background: #050505; border: 1px dashed var(--primary); padding: 15px; border-radius: 10px; margin: 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .key-text { font-family: 'Orbitron'; color: var(--neon); font-size: 13px; word-break: break-all; text-align: left; }
         .copy-btn { background: var(--primary); color: #fff; border: none; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
 
-        /* UPLOAD AREA */
         .upload-area { border: 2px dashed #333; border-radius: 15px; padding: 20px; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.02); margin-bottom: 15px; }
-        .upload-area:hover { border-color: var(--primary); background: rgba(188, 19, 254, 0.05); }
-
-        /* ESTILO PARA DESCUENTO VIP */
-        .old-price { text-decoration: line-through; color: #555; font-size: 10px; margin-right: 5px; }
-        .vip-badge { background: var(--primary); color: #fff; font-size: 8px; padding: 2px 5px; border-radius: 4px; margin-left: 5px; font-family: 'Orbitron'; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -183,36 +183,11 @@
                 <div class="profile-card">
                     <img src="" id="p-img-big" class="profile-img-big" onerror="this.src='https://via.placeholder.com/150'">
                     <h2 id="p-user" style="font-family:Orbitron; color:var(--primary); font-size:18px;">USUARIO</h2>
-                    
                     <div class="profile-info-grid">
-                        <div class="info-item">
-                            <i>👤</i>
-                            <div class="info-content">
-                                <span class="info-label">Nombre de Usuario</span>
-                                <span class="info-value" id="p-username-val">---</span>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <i>👑</i>
-                            <div class="info-content">
-                                <span class="info-label">Estado de Cuenta</span>
-                                <span class="info-value" id="p-status-val">USUARIO ESTÁNDAR</span>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <i>📧</i>
-                            <div class="info-content">
-                                <span class="info-label">Correo Electrónico</span>
-                                <span class="info-value" id="p-mail-val">---</span>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <i>🔒</i>
-                            <div class="info-content">
-                                <span class="info-label">Contraseña Acceso</span>
-                                <span class="info-value" id="p-pass-val">---</span>
-                            </div>
-                        </div>
+                        <div class="info-item"><i>👤</i><div class="info-content"><span class="info-label">Nombre de Usuario</span><span class="info-value" id="p-username-val">---</span></div></div>
+                        <div class="info-item"><i>👑</i><div class="info-content"><span class="info-label">Estado de Cuenta</span><span class="info-value" id="p-status-val">USUARIO ESTÁNDAR</span></div></div>
+                        <div class="info-item"><i>📧</i><div class="info-content"><span class="info-label">Correo Electrónico</span><span class="info-value" id="p-mail-val">---</span></div></div>
+                        <div class="info-item"><i>🔒</i><div class="info-content"><span class="info-label">Contraseña Acceso</span><span class="info-value" id="p-pass-val">---</span></div></div>
                     </div>
                 </div>
                 <div class="section-title">HISTORIAL DE RECARGAS</div>
@@ -243,11 +218,7 @@
     <div class="modal" id="modal-key-result">
         <div class="modal-content">
             <h2 style="font-family:Orbitron; font-size:14px; color:var(--primary);">COMPRA EXITOSA</h2>
-            <p style="font-size:11px; color:#aaa; margin-top:10px;">Copia tu licencia a continuación:</p>
-            <div class="key-display-box">
-                <span class="key-text" id="final-key-text">CARGANDO...</span>
-                <button class="copy-btn" onclick="copyKey()">📋</button>
-            </div>
+            <div class="key-display-box"><span class="key-text" id="final-key-text">CARGANDO...</span><button class="copy-btn" onclick="copyKey()">📋</button></div>
             <button class="btn-main" onclick="closeModal('modal-key-result')">ENTENDIDO</button>
         </div>
     </div>
@@ -256,19 +227,13 @@
         <div class="modal-content">
             <h2 id="pay-title" style="font-family:Orbitron; font-size:14px; color:var(--primary); margin-bottom:15px;">PAGO</h2>
             <div id="pay-details-box" style="background:#111; padding:15px; border-radius:10px; border:1px dashed var(--primary); margin-bottom:15px; font-size:11px;"></div>
-            <div class="input-box"><input type="number" id="pay-amount" placeholder="Monto a recargar ($)"></div>
-            <div class="input-box"><textarea id="pay-msg" placeholder="Mensaje o ID de pago..."></textarea></div>
-            
+            <div class="input-box"><input type="number" id="pay-amount" placeholder="Monto ($)"></div>
+            <div class="input-box"><textarea id="pay-msg" placeholder="ID de pago o Referencia..."></textarea></div>
             <div class="upload-area" onclick="document.getElementById('pay-file').click()">
-                <div id="upload-placeholder">
-                    <div style="font-size: 30px; margin-bottom: 5px;">📸</div>
-                    <span id="file-status" style="font-size: 10px; font-family: 'Orbitron'; color: var(--primary); font-weight: bold;">ADJUNTAR COMPROBANTE</span>
-                    <p style="font-size: 9px; color: #555; margin-top: 5px;">Toca para seleccionar imagen</p>
-                </div>
-                <img id="preview-img-pay" style="width:100%; max-height:150px; display:none; border-radius:10px; object-fit: contain; border: 1px solid var(--primary);">
+                <div id="upload-placeholder"><span id="file-status" style="font-size: 10px; font-family: 'Orbitron'; color: var(--primary);">📸 ADJUNTAR COMPROBANTE</span></div>
+                <img id="preview-img-pay" style="width:100%; max-height:150px; display:none; border-radius:10px; object-fit: contain;">
                 <input type="file" id="pay-file" accept="image/*" style="display:none;" onchange="previewPayFile()">
             </div>
-
             <button class="btn-main" id="btn-send-report" onclick="sendPaymentReport()">ENVIAR REPORTE</button>
             <button class="btn-main" style="background:#222; margin-top: 5px;" onclick="closeModal('modal-pay')">CERRAR</button>
         </div>
@@ -342,35 +307,12 @@
                 onSnapshot(doc(dbFS, "users", user.uid), (s) => {
                     if(s.exists()){ 
                         userData = s.data();
-                        
-                        // VERIFICAR BANEO
-                        if(userData.status === "disabled" || userData.status === "banned"){
-                            alert("TU CUENTA ESTÁ BANEADA/DESHABILITADA");
-                            handleLogout(); return;
-                        }
-
-                        // SISTEMA VIP - DETECCION Y ESTILO
+                        if(userData.status === "disabled" || userData.status === "banned"){ handleLogout(); return; }
                         const isVip = userData.isVip === true || userData.status === "vip";
                         const label = document.getElementById('vip-status-label');
-                        const pImg = document.getElementById('p-img-big');
-                        const dImg = document.getElementById('dr-img');
-
                         if(isVip){
                             label.innerHTML = '<span style="color:var(--primary); font-weight:bold; font-family:Orbitron;">👑 VIP SUPREME</span>';
-                            pImg.style.borderColor = 'var(--primary)';
-                            pImg.style.boxShadow = '0 0 15px var(--primary)';
-                            dImg.style.borderColor = 'var(--primary)';
-                            document.getElementById('p-status-val').innerText = "MIEMBRO VIP SUPREME";
-                            document.getElementById('p-status-val').style.color = "var(--primary)";
-                        } else {
-                            label.innerHTML = '<span style="color:#555; font-family:Orbitron;">USUARIO ESTÁNDAR</span>';
-                            pImg.style.borderColor = 'var(--primary)'; // Mantener estilo original
-                            pImg.style.boxShadow = 'none';
-                            dImg.style.borderColor = 'var(--primary)';
-                            document.getElementById('p-status-val').innerText = "USUARIO ESTÁNDAR";
-                            document.getElementById('p-status-val').style.color = "#fff";
-                        }
-
+                        } else { label.innerHTML = '<span style="color:#555; font-family:Orbitron;">USUARIO ESTÁNDAR</span>'; }
                         uBal = userData.balance;
                         document.getElementById('v-auth').style.display = 'none';
                         document.getElementById('v-panel').style.display = 'flex';
@@ -379,13 +321,10 @@
                         document.getElementById('dr-bal').innerText = `$${uBal.toFixed(2)}`;
                         document.getElementById('dr-img').src = userData.photo || '';
                         document.getElementById('p-img-big').src = userData.photo || '';
-                        
-                        // ACTUALIZAR PERFIL PROFESIONAL
                         document.getElementById('p-user').innerText = userData.username;
                         document.getElementById('p-username-val').innerText = userData.username;
                         document.getElementById('p-mail-val').innerText = userData.email;
                         document.getElementById('p-pass-val').innerText = userData.password;
-                        
                         loadHistory(user.uid);
                     }
                 });
@@ -399,26 +338,14 @@
         async function loadHistory(uid) {
             const q = query(collection(dbFS, "recargas"), where("uid", "==", uid), orderBy("date", "desc"));
             const snap = await getDocs(q);
-            const box = document.getElementById('hist-pagos-list');
-            box.innerHTML = snap.empty ? '<p style="font-size:10px; color:#444; text-align:center;">No hay recargas.</p>' : '';
+            const box = document.getElementById('hist-pagos-list'); box.innerHTML = '';
             snap.forEach(doc => {
-                const d = doc.data();
-                const fecha = new Date(d.date).toLocaleDateString();
-                box.innerHTML += `
-                    <div class="hist-card">
-                        <div class="hist-data">
-                            <span class="hist-date">${fecha}</span>
-                            <span class="hist-amt">+$${d.monto || 0}</span>
-                        </div>
-                        <button class="btn-ver-hist" onclick="verComprobante('${d.comprobante}')">VER</button>
-                    </div>`;
+                const d = doc.data(); box.innerHTML += `
+                    <div class="hist-card"><div class="hist-data"><span class="hist-date">${new Date(d.date).toLocaleDateString()}</span><span class="hist-amt">+$${d.monto || 0}</span></div><button class="btn-ver-hist" onclick="verComprobante('${d.comprobante}')">VER</button></div>`;
             });
         }
 
-        window.verComprobante = (url) => {
-            document.getElementById('img-target').src = url;
-            document.getElementById('v-img-full').style.display = 'flex';
-        };
+        window.verComprobante = (url) => { document.getElementById('img-target').src = url; document.getElementById('v-img-full').style.display = 'flex'; };
 
         function loadData() {
             onValue(ref(dbRT, 'shop/keys'), (snap) => {
@@ -430,7 +357,6 @@
                     g1.innerHTML += html; g2.innerHTML += html;
                 });
             });
-
             const map = { 'proyectos':['grid-proy','dash-proy'], 'servicios':['grid-serv','dash-serv'] };
             Object.entries(map).forEach(([path, ids]) => {
                 onValue(ref(dbRT, `shop/${path}`), (snap) => {
@@ -442,133 +368,98 @@
                     });
                 });
             });
-
             onValue(ref(dbRT, 'config/pagos'), (snap) => {
                 const g = document.getElementById('grid-pagos'); g.innerHTML = '';
-                snap.forEach(c => {
-                    const d = c.val();
-                    g.innerHTML += `<div class="card-view" style="padding:20px" onclick="openPay('${d.name}','${d.details}')"><h4 class="card-title" style="color:var(--neon)">${d.name}</h4></div>`;
-                });
+                snap.forEach(c => { const d = c.val(); g.innerHTML += `<div class="card-view" style="padding:20px" onclick="openPay('${d.name}','${d.details}')"><h4 class="card-title" style="color:var(--neon)">${d.name}</h4></div>`; });
             });
         }
 
         window.openKeyModal = (id, data) => {
-            selProd = { ...data, id };
-            const isVip = userData.isVip || userData.status === "vip";
+            selProd = { ...data, id }; const isVip = userData.isVip || userData.status === "vip";
             const labels = { d1:'1 DÍA', d3:'3 DÍAS', d7:'7 DÍAS', d15:'15 DÍAS', d30:'30 DÍAS', inf:'PERPETUA' };
             let opt = '';
-            
             if(data.prices){
                 Object.keys(data.prices).forEach(k => {
-                    const label = labels[k] || k.toUpperCase();
-                    let price = data.prices[k];
-                    let priceHtml = `<b style="color:var(--neon)">$${price}</b>`;
-                    
-                    // APLICAR DESCUENTO SI ES VIP (Ejemplo 10% de descuento)
-                    if(isVip) {
-                        const discounted = (price * 0.9).toFixed(2);
-                        priceHtml = `<span class="old-price">$${price}</span> <b style="color:var(--neon)">$${discounted}</b> <span class="vip-badge">VIP</span>`;
-                    }
-
-                    opt += `<div class="price-item" onclick="confirmKeyBuy('${k}', ${price})"><span>${label}</span>${priceHtml}</div>`;
+                    let price = data.prices[k]; 
+                    let pFinal = isVip ? (price * 0.5).toFixed(2) : price;
+                    let displayPrice = isVip ? `<span class="price-old">$${price}</span><span class="vip-tag">VIP</span><b style="color:var(--neon)">$${pFinal}</b>` : `<b style="color:var(--neon)">$${pFinal}</b>`;
+                    opt += `<div class="price-item" onclick="confirmKeyBuy('${k}', ${price})"><span>${labels[k]||k}</span>${displayPrice}</div>`;
                 });
             }
-            document.getElementById('modal-buy-content').innerHTML = `<h2 style="font-family:Orbitron; font-size:14px; color:var(--primary); margin-bottom:15px;">DURACIÓN</h2>${opt}<button class="btn-main" style="background:#222" onclick="closeModal('modal-buy')">CANCELAR</button>`;
+            document.getElementById('modal-buy-content').innerHTML = `<h2 style="font-family:Orbitron; font-size:14px; color:var(--primary); margin-bottom:15px;">OPCIONES</h2>${opt}<button class="btn-main" style="background:#222" onclick="closeModal('modal-buy')">CERRAR</button>`;
             document.getElementById('modal-buy').style.display = 'flex';
         };
 
         window.confirmKeyBuy = async (time, originalPrice) => {
-            const isVip = userData.isVip || userData.status === "vip";
-            // Calcular precio final real para el cobro
-            const finalPrice = isVip ? parseFloat((originalPrice * 0.9).toFixed(2)) : originalPrice;
-
+            const isVip = userData.isVip || userData.status === "vip"; const finalPrice = isVip ? originalPrice * 0.5 : originalPrice;
             if(uBal < finalPrice) return sakuraToast("SALDO INSUFICIENTE", "error");
-            
             const snap = await get(ref(dbRT, `stock_keys/${selProd.id}/${time}`));
             if(!snap.exists()) return sakuraToast("SIN STOCK", "error");
-            
             const keyId = Object.keys(snap.val())[0], finalKey = snap.val()[keyId];
-            
             await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: uBal - finalPrice });
             await remove(ref(dbRT, `stock_keys/${selProd.id}/${time}/${keyId}`));
-            
-            closeModal('modal-buy');
-            document.getElementById('final-key-text').innerText = finalKey;
-            document.getElementById('modal-key-result').style.display = 'flex';
+            closeModal('modal-buy'); document.getElementById('final-key-text').innerText = finalKey; document.getElementById('modal-key-result').style.display = 'flex';
         };
 
-        window.copyKey = () => {
-            const key = document.getElementById('final-key-text').innerText;
-            navigator.clipboard.writeText(key).then(() => {
-                sakuraToast("KEY COPIADA AL PORTAPAPELES");
-            });
-        };
+        window.copyKey = () => { navigator.clipboard.writeText(document.getElementById('final-key-text').innerText); sakuraToast("COPIADO"); };
 
         window.openSimpleModal = (path, id, price, name, img) => {
-            selProd = { path, id, price, name };
-            const isVip = userData.isVip || userData.status === "vip";
-            let priceHtml = `<b style="color:var(--neon)">$${price}</b>`;
-            
-            if(isVip) {
-                const discounted = (price * 0.9).toFixed(2);
-                priceHtml = `<span class="old-price">$${price}</span> <b style="color:var(--neon)">$${discounted}</b> <span class="vip-badge">VIP</span>`;
-            }
-
+            selProd = { path, id, price, name }; const isVip = userData.isVip || userData.status === "vip";
+            let pFinal = isVip ? (price * 0.5).toFixed(2) : price;
+            let displayPrice = isVip ? `<span class="price-old">$${price}</span><span class="vip-tag">VIP</span><b style="color:var(--neon)">$${pFinal}</b>` : `<b style="color:var(--neon)">$${pFinal}</b>`;
             document.getElementById('modal-buy-content').innerHTML = `
                 <img src="${img}" style="width:80px; margin-bottom:15px; border-radius:10px;">
-                <h2 style="font-family:Orbitron; font-size:14px;">${name}</h2>
-                <p style="font-size:12px; margin:10px 0;">Precio: ${priceHtml}</p>
-                <button class="btn-main" onclick="confirmSimpleBuy()">COMPRAR</button>
-                <button class="btn-main" style="background:#222" onclick="closeModal('modal-buy')">CERRAR</button>`;
+                <h2 style="font-family:Orbitron; font-size:14px;">${name}</h2><p>Total: ${displayPrice}</p>
+                <button class="btn-main" onclick="confirmSimpleBuy()">COMPRAR</button><button class="btn-main" style="background:#222" onclick="closeModal('modal-buy')">CERRAR</button>`;
             document.getElementById('modal-buy').style.display = 'flex';
         };
 
         window.confirmSimpleBuy = async () => {
-            const isVip = userData.isVip || userData.status === "vip";
-            const finalPrice = isVip ? parseFloat((selProd.price * 0.9).toFixed(2)) : selProd.price;
-
-            if(uBal < finalPrice) return sakuraToast("SALDO INSUFICIENTE", "error");
+            const isVip = userData.isVip || userData.status === "vip"; const finalPrice = isVip ? selProd.price * 0.5 : selProd.price;
+            if(uBal < finalPrice) return sakuraToast("SIN SALDO", "error");
             await updateDoc(doc(dbFS, "users", auth.currentUser.uid), { balance: uBal - finalPrice });
-            closeModal('modal-buy'); sakuraToast("COMPRA EXITOSA");
+            closeModal('modal-buy'); sakuraToast("ÉXITO");
         };
 
-        window.openPay = (n, d) => {
-            document.getElementById('pay-title').innerText = n;
-            document.getElementById('pay-details-box').innerText = d;
-            document.getElementById('preview-img-pay').style.display = 'none';
-            document.getElementById('upload-placeholder').style.display = 'block';
-            base64PayImg = null;
-            document.getElementById('modal-pay').style.display = 'flex';
-        };
-
+        window.openPay = (n, d) => { document.getElementById('pay-title').innerText = n; document.getElementById('pay-details-box').innerText = d; document.getElementById('modal-pay').style.display = 'flex'; base64PayImg = null; };
+        
         window.previewPayFile = () => {
-            const file = document.getElementById('pay-file').files[0];
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                base64PayImg = reader.result;
-                document.getElementById('preview-img-pay').src = base64PayImg;
-                document.getElementById('preview-img-pay').style.display = 'block';
-                document.getElementById('upload-placeholder').style.display = 'none';
-                document.getElementById('file-status').innerText = '✅ LISTO';
-            };
+            const file = document.getElementById('pay-file').files[0]; const reader = new FileReader();
+            reader.onloadend = () => { base64PayImg = reader.result; document.getElementById('preview-img-pay').src = base64PayImg; document.getElementById('preview-img-pay').style.display = 'block'; document.getElementById('upload-placeholder').style.display = 'none'; };
             if(file) reader.readAsDataURL(file);
         };
 
+        // --- CÓDIGO EXTRAÍDO E INTEGRADO CON LIMPIEZA ---
         window.sendPaymentReport = async () => {
-            const msg = document.getElementById('pay-msg').value;
-            const amt = document.getElementById('pay-amount').value;
-            if(!base64PayImg || !amt) return sakuraToast("FALTAN DATOS", "error");
+            const msgIn = document.getElementById('pay-msg');
+            const amtIn = document.getElementById('pay-amount');
+            const fileIn = document.getElementById('pay-file');
+            
+            if(!base64PayImg || !amtIn.value) return sakuraToast("FALTAN DATOS", "error");
+            
             const btn = document.getElementById('btn-send-report');
             btn.innerText = "ENVIANDO..."; btn.disabled = true;
+            
             try {
                 await addDoc(collection(dbFS, "recargas"), {
                     uid: auth.currentUser.uid,
                     username: userData.username,
                     metodo: document.getElementById('pay-title').innerText,
-                    mensaje: msg, monto: parseFloat(amt),
+                    mensaje: msgIn.value, monto: parseFloat(amtIn.value),
                     comprobante: base64PayImg, status: "pendiente", date: Date.now()
                 });
-                sakuraToast("REPORTE ENVIADO"); closeModal('modal-pay');
+                
+                sakuraToast("REPORTE ENVIADO");
+                
+                // LIMPIEZA DE CAMPOS PARA EVITAR BUG
+                msgIn.value = "";
+                amtIn.value = "";
+                fileIn.value = "";
+                base64PayImg = null;
+                document.getElementById('preview-img-pay').style.display = 'none';
+                document.getElementById('upload-placeholder').style.display = 'block';
+                
+                closeModal('modal-pay');
             } catch(e) { sakuraToast("ERROR", "error"); }
             finally { btn.innerText = "ENVIAR REPORTE"; btn.disabled = false; }
         };

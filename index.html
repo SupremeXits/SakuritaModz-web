@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -519,16 +520,26 @@
             });
         }
 
-        // --- LÓGICA MODAL DESCARGAS ---
+        // --- LÓGICA MODAL DESCARGAS ACTUALIZADA ---
         window.openDownloadM = (data) => {
             document.getElementById('m-dl-name').innerText = data.name;
             document.getElementById('m-dl-img').src = data.image;
             document.getElementById('m-dl-spec').innerText = data.spec;
+            
+            // Script de descarga incorporado aquí
             document.getElementById('btn-final-download').onclick = () => {
-                const a = document.createElement('a'); a.href = data.url; a.download = data.name; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                const link = document.createElement('a');
+                link.href = data.url;
+                link.target = '_blank';
+                link.setAttribute('download', data.name || 'archivo');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
                 sakuraToast("INICIANDO DESCARGA...");
                 setTimeout(() => closeModal('modal-download'), 2000);
             };
+            
             document.getElementById('modal-download').style.display = 'flex';
         };
 

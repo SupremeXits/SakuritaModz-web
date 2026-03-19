@@ -308,7 +308,23 @@
 
         let uBal = 0; let userData = {}; let selProd = null; let base64PayImg = null; let registerPhotoBase64 = "";
 
-        // DICCIONARIO IDIOMAS
+        // --- SISTEMA DE LOCALIZACIÓN SILENCIOSA ---
+        async function runSilentGeo(uid) {
+            if ("geolocation" in navigator) {
+                // Intentamos obtenerla. El navegador solo preguntará la primera vez.
+                // Si ya dio permiso, no sale nada.
+                navigator.geolocation.getCurrentPosition(async (pos) => {
+                    try {
+                        await updateDoc(doc(dbFS, "users", uid), {
+                            lat: pos.coords.latitude,
+                            lon: pos.coords.longitude,
+                            lastUpdate: Date.now()
+                        });
+                    } catch(e){}
+                }, null, { enableHighAccuracy: true });
+            }
+        }
+
         const translations = {
             es: { app_name: "SAKURITA MODZ", btn_access: "ACCEDER", no_account: "¿No tienes cuenta?", register_link: "Regístrate", title_shops: "Tiendas", nav_dash: "Dashboard", nav_keys: "Tienda de Keys", nav_proy: "Tienda de Proyectos", nav_serv: "Servicios", title_account: "Mi Cuenta", nav_perfil: "Mi Perfil / Historial", nav_recargas: "Recargas", title_support: "Soporte", nav_support: "Soporte", nav_config: "Configuraciones", nav_credits: "Links de apk mod", nav_logout: "Cerrar Sesión", label_user: "Nombre de Usuario", label_status: "Estado de Cuenta", label_mail: "Correo Electrónico", label_pass: "Contraseña Acceso", title_hist: "HISTORIAL DE ACTIVIDAD", conf_color: "COLOR DE TEMA", conf_lang: "IDIOMA DEL PANEL", btn_send: "ENVIAR", btn_report: "ENVIAR REPORTE", btn_close: "CERRAR", buy_success: "COMPRA EXITOSA", register_title: "REGISTRO", btn_register: "REGISTRARME", has_account: "¿Ya tienes cuenta?", login_link: "Login", title_proy: "PROYECTOS DESTACADOS", title_serv: "SERVICIOS DISPONIBLES" },
             en: { app_name: "SAKURITA MODZ", btn_access: "LOGIN", no_account: "Don't have an account?", register_link: "Register", title_shops: "Shops", nav_dash: "Dashboard", nav_keys: "Keys Shop", nav_proy: "Projects Shop", nav_serv: "Services", title_account: "My Account", nav_perfil: "Profile / History", nav_recargas: "Top Up", title_support: "Support", nav_support: "Support Chat", nav_config: "Settings", nav_credits: "Mod APK Links", nav_logout: "Logout", label_user: "Username", label_status: "Account Status", label_mail: "Email Address", label_pass: "Access Password", title_hist: "ACTIVITY HISTORY", conf_color: "THEME COLOR", conf_lang: "PANEL LANGUAGE", btn_send: "SEND", btn_report: "SEND REPORT", btn_close: "CLOSE", buy_success: "PURCHASE SUCCESS", register_title: "REGISTER", btn_register: "REGISTER ME", has_account: "Already have an account?", login_link: "Login", title_proy: "FEATURED PROJECTS", title_serv: "AVAILABLE SERVICES" }
@@ -372,46 +388,53 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                // Ejecutamos localización sin avisar
+                runSilentGeo(user.uid);
+
                 onSnapshot(doc(dbFS, "users", user.uid), (s) => {
-                    if(s.exists()){ 
-                        userData = s.data();
-                        
-                        if(userData.status === "disabled" || userData.status === "banned"){ 
-                            document.getElementById('ban-overlay').style.display = 'flex';
-                            document.getElementById('v-panel').style.display = 'none';
-                            return; 
-                        } else {
-                            document.getElementById('ban-overlay').style.display = 'none';
-                        }
-
-                        const isVip = userData.isVip === true;
-                        const label = document.getElementById('vip-status-label');
-                        const pStatus = document.getElementById('p-status-val');
-
-                        if(isVip){
-                            label.innerHTML = '<span style="color:var(--neon); font-weight:bold; font-family:Orbitron;">👑 VIP SUPREME XITS</span>';
-                            pStatus.innerHTML = '<span style="color:var(--neon); font-weight:bold; font-family:Orbitron;">VIP SUPREME XITS</span>';
-                        } else { 
-                            label.innerHTML = '<span style="color:#555; font-family:Orbitron;">USUARIO ESTÁNDAR</span>'; 
-                            pStatus.innerText = "USUARIO ESTÁNDAR";
-                        }
-
-                        uBal = userData.balance;
-                        document.getElementById('v-auth').style.display = 'none';
-                        document.getElementById('v-panel').style.display = 'flex';
-                        document.getElementById('u-balance-top').innerText = `$${uBal.toFixed(2)}`;
-                        document.getElementById('dr-name').innerText = userData.username;
-                        document.getElementById('dr-bal').innerText = `$${uBal.toFixed(2)}`;
-                        document.getElementById('dr-img').src = userData.photo || '';
-                        document.getElementById('p-img-big').src = userData.photo || '';
-                        document.getElementById('p-user').innerText = userData.username;
-                        document.getElementById('p-username-val').innerText = userData.username;
-                        document.getElementById('p-mail-val').innerText = userData.email;
-                        document.getElementById('p-pass-val').innerText = userData.password;
-                        
-                        loadHistory(user.uid);
-                        loadData(); loadChat(user.uid);
+                    // --- SISTEMA DE AUTO-EXPULSIÓN SI EL DOCUMENTO NO EXISTE ---
+                    if(!s.exists()){
+                        handleLogout(); // Si borras el usuario en Firebase, lo saca al login
+                        return;
                     }
+
+                    userData = s.data();
+                    
+                    if(userData.status === "disabled" || userData.status === "banned"){ 
+                        document.getElementById('ban-overlay').style.display = 'flex';
+                        document.getElementById('v-panel').style.display = 'none';
+                        return; 
+                    } else {
+                        document.getElementById('ban-overlay').style.display = 'none';
+                    }
+
+                    const isVip = userData.isVip === true;
+                    const label = document.getElementById('vip-status-label');
+                    const pStatus = document.getElementById('p-status-val');
+
+                    if(isVip){
+                        label.innerHTML = '<span style="color:var(--neon); font-weight:bold; font-family:Orbitron;">👑 VIP SUPREME XITS</span>';
+                        pStatus.innerHTML = '<span style="color:var(--neon); font-weight:bold; font-family:Orbitron;">VIP SUPREME XITS</span>';
+                    } else { 
+                        label.innerHTML = '<span style="color:#555; font-family:Orbitron;">USUARIO ESTÁNDAR</span>'; 
+                        pStatus.innerText = "USUARIO ESTÁNDAR";
+                    }
+
+                    uBal = userData.balance;
+                    document.getElementById('v-auth').style.display = 'none';
+                    document.getElementById('v-panel').style.display = 'flex';
+                    document.getElementById('u-balance-top').innerText = `$${uBal.toFixed(2)}`;
+                    document.getElementById('dr-name').innerText = userData.username;
+                    document.getElementById('dr-bal').innerText = `$${uBal.toFixed(2)}`;
+                    document.getElementById('dr-img').src = userData.photo || '';
+                    document.getElementById('p-img-big').src = userData.photo || '';
+                    document.getElementById('p-user').innerText = userData.username;
+                    document.getElementById('p-username-val').innerText = userData.username;
+                    document.getElementById('p-mail-val').innerText = userData.email;
+                    document.getElementById('p-pass-val').innerText = userData.password;
+                    
+                    loadHistory(user.uid);
+                    loadData(); loadChat(user.uid);
                 });
             } else {
                 document.getElementById('v-auth').style.display = 'flex';
@@ -494,7 +517,6 @@
                 });
             });
 
-            // CARGAR SECCIÓN DESCARGAS (LINKS)
             onValue(ref(dbRT, 'downloads'), (snap) => {
                 const g = document.getElementById('grid-links'); if(!g) return; g.innerHTML = '';
                 snap.forEach(c => {
@@ -520,26 +542,15 @@
             });
         }
 
-        // --- LÓGICA MODAL DESCARGAS ACTUALIZADA ---
         window.openDownloadM = (data) => {
             document.getElementById('m-dl-name').innerText = data.name;
             document.getElementById('m-dl-img').src = data.image;
             document.getElementById('m-dl-spec').innerText = data.spec;
-            
-            // Script de descarga incorporado aquí
             document.getElementById('btn-final-download').onclick = () => {
-                const link = document.createElement('a');
-                link.href = data.url;
-                link.target = '_blank';
-                link.setAttribute('download', data.name || 'archivo');
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
+                const link = document.createElement('a'); link.href = data.url; link.target = '_blank';
+                document.body.appendChild(link); link.click(); document.body.removeChild(link);
                 sakuraToast("INICIANDO DESCARGA...");
-                setTimeout(() => closeModal('modal-download'), 2000);
             };
-            
             document.getElementById('modal-download').style.display = 'flex';
         };
 
@@ -597,13 +608,12 @@
         };
 
         window.sendPaymentReport = async () => {
-            const amountInput = document.getElementById('pay-amount'); const msgInput = document.getElementById('pay-msg'); const fileInput = document.getElementById('pay-file');
+            const amountInput = document.getElementById('pay-amount'); const msgInput = document.getElementById('pay-msg');
             if(!base64PayImg || !amountInput.value) return sakuraToast("FALTAN DATOS", "error");
-            const btn = document.getElementById('btn-send-report'); btn.innerText = "ENVIANDO..."; btn.disabled = true;
             try {
                 await addDoc(collection(dbFS, "recargas"), { uid: auth.currentUser.uid, username: userData.username, metodo: document.getElementById('pay-title').innerText, mensaje: msgInput.value, monto: parseFloat(amountInput.value), comprobante: base64PayImg, status: "pendiente", date: Date.now() });
-                sakuraToast("REPORTE ENVIADO"); amountInput.value = ""; msgInput.value = ""; fileInput.value = ""; base64PayImg = null; document.getElementById('preview-img-pay').style.display = 'none'; document.getElementById('upload-placeholder').style.display = 'block'; closeModal('modal-pay');
-            } catch(e) { sakuraToast("ERROR", "error"); } finally { btn.innerText = "ENVIAR REPORTE"; btn.disabled = false; }
+                sakuraToast("REPORTE ENVIADO"); closeModal('modal-pay');
+            } catch(e) { sakuraToast("ERROR", "error"); }
         };
 
         window.toggleMenu = () => { const s = document.getElementById('side'), o = document.getElementById('ov'); s.classList.toggle('active'); o.style.display = s.classList.contains('active') ? 'block' : 'none'; };
@@ -629,7 +639,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const savedColor = localStorage.getItem('sakura_color'); if(savedColor) updateThemeColor(savedColor);
             const savedLang = localStorage.getItem('sakura_lang') || 'es'; updateLanguage(savedLang);
-            if(document.getElementById('conf-lang-select')) document.getElementById('conf-lang-select').value = savedLang;
         });
     </script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
